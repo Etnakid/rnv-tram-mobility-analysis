@@ -1,0 +1,25 @@
+# Local environments and credentials
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+
+# Acquired/generated data (future)
+data/raw/
+data/processed/
+*.zip
+
+# Notebook and Power BI local state
+.ipynb_checkpoints/
+**/.pbi/
+*.pbix
+*.pbit
+
+# Local editor/OS files
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
