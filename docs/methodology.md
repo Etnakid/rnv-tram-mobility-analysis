@@ -1,5 +1,7 @@
 # Scope and analytical method
 
+Study period: 1 January–31 December 2025. Verify historical timetable coverage for every date before annual comparisons. See calendar_2025.md for state-level holidays and school breaks; local movable closures remain unknown. The reference calendar provides context and never overrides service calendars.
+
 ## Network boundary
 
 The unit of scope is the rnv tram/interurban rail network, not an assumed list of cities. Build an explicit inclusion table containing source agency ID, route ID, public line name, mode, inclusion decision, rationale and snapshot date. Check urban and interurban rail encodings rather than assuming a single GTFS route_type captures the whole network.

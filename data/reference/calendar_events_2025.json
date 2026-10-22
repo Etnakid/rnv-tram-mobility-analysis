@@ -1,0 +1,424 @@
+{
+  "metadata": {
+    "year": 2025,
+    "reviewed_on": "2026-10-22",
+    "sources": {
+      "kmk_2024_25": "https://www.kmk.org/fileadmin/Dateien/pdf/Ferienkalender/FER2024_25.pdf",
+      "kmk_2025_26": "https://www.kmk.org/fileadmin/Dateien/pdf/Ferienkalender/FER2025_26.pdf",
+      "BW_holidays": "https://im.baden-wuerttemberg.de/de/service/feiertage",
+      "RP_holidays": "https://mdi.rlp.de/themen/buerger-und-staat/verfassung-und-verwaltung/sonn-und-feiertagsrecht",
+      "HE_holidays": "https://innen.hessen.de/buerger-staat/feiertage",
+      "BW_school": "https://km.baden-wuerttemberg.de/de/service/ferien",
+      "RP_school": "https://bm.rlp.de/service/ferientermine/seite",
+      "HE_local": "https://schulaemter.hessen.de/Themen-A-Z/ferien"
+    },
+    "limitations": [
+      "Statewide dates only; local movable school days and exceptional closures remain unknown.",
+      "Break intervals are inclusive; weekends and public holidays retain independent flags.",
+      "No inferred is_school_day flag: absence from an official break does not prove classes were held.",
+      "Use as explanatory context, not to override GTFS service calendars."
+    ]
+  },
+  "events": [
+    {
+      "state": "BW",
+      "kind": "public_holiday",
+      "name": "Neujahr",
+      "start": "2025-01-01",
+      "end": "2025-01-01",
+      "source": "BW_holidays"
+    },
+    {
+      "state": "BW",
+      "kind": "public_holiday",
+      "name": "Erscheinungsfest",
+      "start": "2025-01-06",
+      "end": "2025-01-06",
+      "source": "BW_holidays"
+    },
+    {
+      "state": "BW",
+      "kind": "public_holiday",
+      "name": "Karfreitag",
+      "start": "2025-04-18",
+      "end": "2025-04-18",
+      "source": "BW_holidays"
+    },
+    {
+      "state": "BW",
+      "kind": "public_holiday",
+      "name": "Ostermontag",
+      "start": "2025-04-21",
+      "end": "2025-04-21",
+      "source": "BW_holidays"
+    },
+    {
+      "state": "BW",
+      "kind": "public_holiday",
+      "name": "Tag der Arbeit",
+      "start": "2025-05-01",
+      "end": "2025-05-01",
+      "source": "BW_holidays"
+    },
+    {
+      "state": "BW",
+      "kind": "public_holiday",
+      "name": "Christi Himmelfahrt",
+      "start": "2025-05-29",
+      "end": "2025-05-29",
+      "source": "BW_holidays"
+    },
+    {
+      "state": "BW",
+      "kind": "public_holiday",
+      "name": "Pfingstmontag",
+      "start": "2025-06-09",
+      "end": "2025-06-09",
+      "source": "BW_holidays"
+    },
+    {
+      "state": "BW",
+      "kind": "public_holiday",
+      "name": "Fronleichnam",
+      "start": "2025-06-19",
+      "end": "2025-06-19",
+      "source": "BW_holidays"
+    },
+    {
+      "state": "BW",
+      "kind": "public_holiday",
+      "name": "Tag der Deutschen Einheit",
+      "start": "2025-10-03",
+      "end": "2025-10-03",
+      "source": "BW_holidays"
+    },
+    {
+      "state": "BW",
+      "kind": "public_holiday",
+      "name": "Allerheiligen",
+      "start": "2025-11-01",
+      "end": "2025-11-01",
+      "source": "BW_holidays"
+    },
+    {
+      "state": "BW",
+      "kind": "public_holiday",
+      "name": "1. Weihnachtsfeiertag",
+      "start": "2025-12-25",
+      "end": "2025-12-25",
+      "source": "BW_holidays"
+    },
+    {
+      "state": "BW",
+      "kind": "public_holiday",
+      "name": "2. Weihnachtsfeiertag",
+      "start": "2025-12-26",
+      "end": "2025-12-26",
+      "source": "BW_holidays"
+    },
+    {
+      "state": "BW",
+      "kind": "school_break",
+      "name": "Christmas 2024/25",
+      "start": "2024-12-23",
+      "end": "2025-01-04",
+      "source": "kmk_2024_25"
+    },
+    {
+      "state": "BW",
+      "kind": "school_break",
+      "name": "Easter",
+      "start": "2025-04-14",
+      "end": "2025-04-26",
+      "source": "kmk_2024_25"
+    },
+    {
+      "state": "BW",
+      "kind": "school_break",
+      "name": "Pentecost",
+      "start": "2025-06-10",
+      "end": "2025-06-20",
+      "source": "kmk_2024_25"
+    },
+    {
+      "state": "BW",
+      "kind": "school_break",
+      "name": "Summer",
+      "start": "2025-07-31",
+      "end": "2025-09-13",
+      "source": "kmk_2024_25"
+    },
+    {
+      "state": "BW",
+      "kind": "school_break",
+      "name": "Autumn",
+      "start": "2025-10-27",
+      "end": "2025-10-30",
+      "source": "kmk_2025_26"
+    },
+    {
+      "state": "BW",
+      "kind": "school_break",
+      "name": "Christmas 2025/26",
+      "start": "2025-12-22",
+      "end": "2026-01-05",
+      "source": "kmk_2025_26"
+    },
+    {
+      "state": "BW",
+      "kind": "school_free_day",
+      "name": "Reformationsfest",
+      "start": "2025-10-31",
+      "end": "2025-10-31",
+      "source": "BW_school"
+    },
+    {
+      "state": "RP",
+      "kind": "public_holiday",
+      "name": "Neujahr",
+      "start": "2025-01-01",
+      "end": "2025-01-01",
+      "source": "RP_holidays"
+    },
+    {
+      "state": "RP",
+      "kind": "public_holiday",
+      "name": "Karfreitag",
+      "start": "2025-04-18",
+      "end": "2025-04-18",
+      "source": "RP_holidays"
+    },
+    {
+      "state": "RP",
+      "kind": "public_holiday",
+      "name": "Ostermontag",
+      "start": "2025-04-21",
+      "end": "2025-04-21",
+      "source": "RP_holidays"
+    },
+    {
+      "state": "RP",
+      "kind": "public_holiday",
+      "name": "Tag der Arbeit",
+      "start": "2025-05-01",
+      "end": "2025-05-01",
+      "source": "RP_holidays"
+    },
+    {
+      "state": "RP",
+      "kind": "public_holiday",
+      "name": "Christi Himmelfahrt",
+      "start": "2025-05-29",
+      "end": "2025-05-29",
+      "source": "RP_holidays"
+    },
+    {
+      "state": "RP",
+      "kind": "public_holiday",
+      "name": "Pfingstmontag",
+      "start": "2025-06-09",
+      "end": "2025-06-09",
+      "source": "RP_holidays"
+    },
+    {
+      "state": "RP",
+      "kind": "public_holiday",
+      "name": "Fronleichnam",
+      "start": "2025-06-19",
+      "end": "2025-06-19",
+      "source": "RP_holidays"
+    },
+    {
+      "state": "RP",
+      "kind": "public_holiday",
+      "name": "Tag der Deutschen Einheit",
+      "start": "2025-10-03",
+      "end": "2025-10-03",
+      "source": "RP_holidays"
+    },
+    {
+      "state": "RP",
+      "kind": "public_holiday",
+      "name": "Allerheiligen",
+      "start": "2025-11-01",
+      "end": "2025-11-01",
+      "source": "RP_holidays"
+    },
+    {
+      "state": "RP",
+      "kind": "public_holiday",
+      "name": "1. Weihnachtsfeiertag",
+      "start": "2025-12-25",
+      "end": "2025-12-25",
+      "source": "RP_holidays"
+    },
+    {
+      "state": "RP",
+      "kind": "public_holiday",
+      "name": "2. Weihnachtsfeiertag",
+      "start": "2025-12-26",
+      "end": "2025-12-26",
+      "source": "RP_holidays"
+    },
+    {
+      "state": "RP",
+      "kind": "school_break",
+      "name": "Christmas 2024/25",
+      "start": "2024-12-23",
+      "end": "2025-01-08",
+      "source": "kmk_2024_25"
+    },
+    {
+      "state": "RP",
+      "kind": "school_break",
+      "name": "Easter",
+      "start": "2025-04-14",
+      "end": "2025-04-25",
+      "source": "kmk_2024_25"
+    },
+    {
+      "state": "RP",
+      "kind": "school_break",
+      "name": "Summer",
+      "start": "2025-07-07",
+      "end": "2025-08-15",
+      "source": "kmk_2024_25"
+    },
+    {
+      "state": "RP",
+      "kind": "school_break",
+      "name": "Autumn",
+      "start": "2025-10-13",
+      "end": "2025-10-24",
+      "source": "kmk_2025_26"
+    },
+    {
+      "state": "RP",
+      "kind": "school_break",
+      "name": "Christmas 2025/26",
+      "start": "2025-12-22",
+      "end": "2026-01-07",
+      "source": "kmk_2025_26"
+    },
+    {
+      "state": "HE",
+      "kind": "public_holiday",
+      "name": "Neujahr",
+      "start": "2025-01-01",
+      "end": "2025-01-01",
+      "source": "HE_holidays"
+    },
+    {
+      "state": "HE",
+      "kind": "public_holiday",
+      "name": "Karfreitag",
+      "start": "2025-04-18",
+      "end": "2025-04-18",
+      "source": "HE_holidays"
+    },
+    {
+      "state": "HE",
+      "kind": "public_holiday",
+      "name": "Ostermontag",
+      "start": "2025-04-21",
+      "end": "2025-04-21",
+      "source": "HE_holidays"
+    },
+    {
+      "state": "HE",
+      "kind": "public_holiday",
+      "name": "Tag der Arbeit",
+      "start": "2025-05-01",
+      "end": "2025-05-01",
+      "source": "HE_holidays"
+    },
+    {
+      "state": "HE",
+      "kind": "public_holiday",
+      "name": "Christi Himmelfahrt",
+      "start": "2025-05-29",
+      "end": "2025-05-29",
+      "source": "HE_holidays"
+    },
+    {
+      "state": "HE",
+      "kind": "public_holiday",
+      "name": "Pfingstmontag",
+      "start": "2025-06-09",
+      "end": "2025-06-09",
+      "source": "HE_holidays"
+    },
+    {
+      "state": "HE",
+      "kind": "public_holiday",
+      "name": "Fronleichnam",
+      "start": "2025-06-19",
+      "end": "2025-06-19",
+      "source": "HE_holidays"
+    },
+    {
+      "state": "HE",
+      "kind": "public_holiday",
+      "name": "Tag der Deutschen Einheit",
+      "start": "2025-10-03",
+      "end": "2025-10-03",
+      "source": "HE_holidays"
+    },
+    {
+      "state": "HE",
+      "kind": "public_holiday",
+      "name": "1. Weihnachtsfeiertag",
+      "start": "2025-12-25",
+      "end": "2025-12-25",
+      "source": "HE_holidays"
+    },
+    {
+      "state": "HE",
+      "kind": "public_holiday",
+      "name": "2. Weihnachtsfeiertag",
+      "start": "2025-12-26",
+      "end": "2025-12-26",
+      "source": "HE_holidays"
+    },
+    {
+      "state": "HE",
+      "kind": "school_break",
+      "name": "Christmas 2024/25",
+      "start": "2024-12-23",
+      "end": "2025-01-10",
+      "source": "kmk_2024_25"
+    },
+    {
+      "state": "HE",
+      "kind": "school_break",
+      "name": "Easter",
+      "start": "2025-04-07",
+      "end": "2025-04-21",
+      "source": "kmk_2024_25"
+    },
+    {
+      "state": "HE",
+      "kind": "school_break",
+      "name": "Summer",
+      "start": "2025-07-07",
+      "end": "2025-08-15",
+      "source": "kmk_2024_25"
+    },
+    {
+      "state": "HE",
+      "kind": "school_break",
+      "name": "Autumn",
+      "start": "2025-10-06",
+      "end": "2025-10-18",
+      "source": "kmk_2025_26"
+    },
+    {
+      "state": "HE",
+      "kind": "school_break",
+      "name": "Christmas 2025/26",
+      "start": "2025-12-22",
+      "end": "2026-01-10",
+      "source": "kmk_2025_26"
+    }
+  ]
+}

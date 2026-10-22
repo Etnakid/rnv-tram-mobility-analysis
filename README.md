@@ -4,7 +4,7 @@ How does the rnv tram network connect everyday life across the Rhein-Neckar regi
 
 This independent portfolio project explores evening service, commuting connections, territorial differences, stop accessibility and service reliability. Its scope is the full rnv tram and interurban light-rail network, rather than a predetermined selection of cities.
 
-**Status: project definition and source discovery. No transport dataset has been downloaded or analysed yet. No findings or dashboard are available in this first release.**
+**Study period: 1 January–31 December 2025.** Historical timetable coverage remains to be validated before transport indicators are calculated. A state-level holiday and school-break reference calendar is available; local movable school closures remain unresolved. No transport findings or dashboard are available yet.
 
 ## Five research questions
 
@@ -27,11 +27,12 @@ A tram-only analysis cannot establish total public-transport accessibility. Sche
 ## Start here
 
 - [Scope and analytical method](docs/methodology.md)
+- [2025 holidays and school breaks](docs/calendar_2025.md)
 - [Source register and unresolved coverage](docs/sources.md)
 - [Delivery roadmap](docs/roadmap.md)
 - [Data handling](data/README.md)
 
-This release contains documentation only and requires no software installation. Planned tools are Python and SQL for preparation and analysis, followed by Power BI for presentation; dependencies and execution instructions will accompany working code.
+Regenerate the reference calendar with Python 3.10 or later: `python scripts/build_calendar.py`. It uses the standard library and writes JSON under `data/reference/`. Planned analytical tools are Python and SQL, followed by Power BI for presentation; additional dependencies and execution instructions will accompany that code.
 
 ## Next milestone
 
