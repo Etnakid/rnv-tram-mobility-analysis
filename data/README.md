@@ -1,8 +1,8 @@
 # Data handling
 
-No transport data are included in this first release.
+The reviewed calendar and archive manifest are included. Raw timetable ZIPs and generated analysis results remain local.
 
-Future layout:
+Data layout:
 
 - raw/: immutable acquired snapshots, subject to source redistribution terms.
 - processed/: generated analytical tables.

@@ -1,0 +1,87 @@
+// Create each measure separately on ServiceDays. Use a single-selection Connection slicer.
+
+Median daytime departures =
+IF (
+    HASONEVALUE ( ServiceDays[Connection] ),
+    CALCULATE (
+        MEDIAN ( ServiceDays[DaytimeDepartures] ),
+        KEEPFILTERS ( ServiceDays[DataStatus] = "ok" )
+    )
+)
+
+Median evening departures =
+IF (
+    HASONEVALUE ( ServiceDays[Connection] ),
+    CALCULATE (
+        MEDIAN ( ServiceDays[EveningDepartures] ),
+        KEEPFILTERS ( ServiceDays[DataStatus] = "ok" )
+    )
+)
+
+Eligible days =
+IF (
+    HASONEVALUE ( ServiceDays[Connection] ),
+    COALESCE (
+        CALCULATE ( COUNTROWS ( ServiceDays ), KEEPFILTERS ( ServiceDays[DataStatus] = "ok" ) ),
+        0
+    )
+)
+
+Excluded days =
+IF (
+    HASONEVALUE ( ServiceDays[Connection] ),
+    COALESCE (
+        CALCULATE ( COUNTROWS ( ServiceDays ), KEEPFILTERS ( ServiceDays[DataStatus] <> "ok" ) ),
+        0
+    )
+)
+
+// Median of daily medians, not a pooled median of every departure interval.
+Median daily daytime gap =
+IF (
+    HASONEVALUE ( ServiceDays[Connection] ),
+    CALCULATE (
+        MEDIAN ( ServiceDays[DaytimeMedianGap] ),
+        KEEPFILTERS ( ServiceDays[DataStatus] = "ok" )
+    )
+)
+
+Median daily evening gap =
+IF (
+    HASONEVALUE ( ServiceDays[Connection] ),
+    CALCULATE (
+        MEDIAN ( ServiceDays[EveningMedianGap] ),
+        KEEPFILTERS ( ServiceDays[DataStatus] = "ok" )
+    )
+)
+
+Connection summary =
+VAR Daytime = [Median daytime departures]
+VAR Evening = [Median evening departures]
+VAR Days = [Eligible days]
+VAR DaysWithService =
+    COUNTROWS (
+        FILTER (
+            ServiceDays,
+            ServiceDays[DataStatus] = "ok"
+                && ServiceDays[DaytimeDepartures] + ServiceDays[EveningDepartures] > 0
+        )
+    )
+RETURN
+    IF (
+        NOT HASONEVALUE ( ServiceDays[Connection] ),
+        "Choose one direction to explore its direct tram service.",
+        IF (
+            Days = 0,
+            "There are no usable days in this selection. Try a different month.",
+            IF (
+                COALESCE ( DaysWithService, 0 ) = 0,
+                "No direct tram departures were found between these hubs during the studied hours in this selection. A journey with a change may still be possible.",
+                "Direct trams run on " & FORMAT ( DaysWithService, "0" )
+                    & " of " & FORMAT ( Days, "0" ) & " usable days during the hours studied. "
+                    & "A typical day has " & FORMAT ( Daytime, "0.#" )
+                    & " daytime and " & FORMAT ( Evening, "0.#" )
+                    & " evening departures. Journeys with a change are not included."
+            )
+        )
+    )

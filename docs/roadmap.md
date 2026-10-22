@@ -7,6 +7,8 @@
 - [x] Document method, source candidates and evidence limits.
 - [ ] Acquire and verify transport data.
 
+Progress on 22 October 2026: downloaded and inspected 64 historical feeds, found tram service on every 2025 date and ran a 10–16 March pilot. Historical line reconciliation and passenger-information spot-checks remain open, so the network verification milestone is not complete.
+
 ## 1 — Verified network inventory
 
 - Select a rail-inclusive timetable snapshot and record provenance/terms.
@@ -43,3 +45,5 @@ If the feed is unsuitable, publish that limitation and retain the module as unco
 - Provide pinned dependencies, repeatable commands and a clean-environment check.
 - Write neutral narrative conclusions supported by results.
 - Ask an independent reviewer to reproduce the published release.
+
+Intercity scope: the dashboard now compares three city pairs in both directions between fixed hubs. Only direct trams are counted; transfers remain outside scope by user choice. The 2025 output contains 2,190 directional date records: 2,166 usable and 24 clock-change exclusions. Twelve targeted checks pass. Power BI model parsing and file references pass; Desktop refresh and rendering remain unverified.
