@@ -30,4 +30,4 @@ Calculate headways for each stop, direction and compatible destination pattern. 
 
 Check primary and foreign keys, active service dates, monotonic stop sequences/times, valid coordinates, route coverage, pickup restrictions, duplicate snapshots and unknown accessibility values. If frequencies.txt is present, handle frequency-based service explicitly.
 
-Check selected stop/day timetables against official passenger information. Keep the source link, selection rules, exclusions and execution steps clear. The current intercity analysis has 12 targeted checks; the October construction notice has been cross-checked, while holiday departure counts still need an external timetable check.
+Check selected stop/day timetables against official passenger information. Keep the source link, selection rules, exclusions and execution steps clear. The October construction notice has been cross-checked, while holiday departure counts still need an external timetable check.

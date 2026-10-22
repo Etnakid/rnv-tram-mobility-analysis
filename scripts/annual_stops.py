@@ -4,7 +4,7 @@ import datetime as dt
 import json
 import statistics
 import zipfile
-from check_2025 import RAW, OUT, ROOT, TRAM_TYPES, YEAR_DAYS, active_services, read_table
+from check_2025 import RAW, OUT, TRAM_TYPES, YEAR_DAYS, active_services, read_table
 
 HUBS = {
     'Mannheim': ['MA Hauptbahnhof'],
@@ -93,11 +93,6 @@ def seconds(value):
     return hour * 3600 + minute * 60 + second
 
 
-def departure_datetime(day, value):
-    # GTFS can use times after 24:00, which belong to the following calendar day.
-    return dt.datetime.combine(day, dt.time()) + dt.timedelta(seconds=seconds(value))
-
-
 def window_stats(departures, start, end):
     selected = sorted(time for time in departures if start <= time < end)
     gaps = [(right - left).total_seconds() / 60 for left, right in zip(selected, selected[1:])]
@@ -107,28 +102,13 @@ def window_stats(departures, start, end):
         'last': selected[-1].isoformat() if selected else None,
         'median_gap_minutes': statistics.median(gaps) if gaps else None,
         'longest_gap_minutes': max(gaps) if gaps else None,
-        'simultaneous_pairs': sum(gap == 0 for gap in gaps),
     }
-
-def calendar_group(day,state,calendar):
-    row = calendar[(day.isoformat(),state)]
-    if row['public_holiday']:
-        return 'Public holiday'
-    if day.weekday()==5:
-        return 'Saturday'
-    if day.weekday()==6:
-        return 'Sunday'
-    if row['in_official_school_break'] or row['additional_state_school_free_days']:
-        return 'Weekday, regional school break'
-    return 'Weekday, outside regional school break'
 
 def main():
     coverage = {r['date']: r['selected_snapshot']
                 for r in json.loads((OUT / 'coverage_2025.json').read_text())}
     coverage['2024-12-31'] = coverage['2025-01-01']
     coverage['2026-01-01'] = coverage['2025-12-31']
-    rows = json.loads((ROOT / 'data/reference/calendar_2025.json').read_text(encoding='utf-8'))['days']
-    calendar = {(r['date'], r['state']): r for r in rows}
     by_date = collections.defaultdict(list)
     present = {}
     positions = {}
@@ -145,7 +125,8 @@ def main():
         present[day] = cities
         for row in candidates:
             if row['service'] in active:
-                time = departure_datetime(day, row['departure'])
+                # Times after 24:00 belong to the following calendar day.
+                time = dt.datetime.combine(day, dt.time()) + dt.timedelta(seconds=seconds(row['departure']))
                 by_date[(row['pair'], time.date())].append(time)
     results = []
     for origin, target in CONNECTIONS:
@@ -162,8 +143,7 @@ def main():
                 daytime = window_stats(values, midnight + dt.timedelta(hours=6), midnight + dt.timedelta(hours=20))
                 evening = window_stats(values, midnight + dt.timedelta(hours=22), midnight + dt.timedelta(days=1, hours=2))
             results.append(dict(case=origin + ' → ' + target, date=str(day), state=STATES[origin],
-                                group=calendar_group(day, STATES[origin], calendar), status=status,
-                                daytime=daytime, evening=evening))
+                                status=status, daytime=daytime, evening=evening))
     assert len(results) == 2190
     assert len({(r['case'], r['date']) for r in results}) == 2190
     # Different trams may depart at the same minute; keep both departures.

@@ -32,7 +32,7 @@ A tram-only analysis cannot establish total public-transport accessibility. Sche
 - [Delivery roadmap](docs/roadmap.md)
 - [Data handling](data/README.md)
 
-The reviewed 2025 calendar is supplied under `data/reference/`. Python prepares the timetable data; Power Query prepares the report table; DAX calculates the medians.
+The reviewed 2025 calendar is supplied under `data/reference/`. Python prepares the timetable data; Power Query joins the reference calendar and creates the day groups; DAX calculates the medians.
 
 ## Reproduce the analysis
 
@@ -42,7 +42,6 @@ Use Python 3.10 or later from the repository folder:
 python -m pip install -r requirements.txt
 python scripts/check_2025.py
 python scripts/annual_stops.py
-python -m unittest discover -s scripts -p test_timetables.py
 ```
 
 The source is the [official rnv timetable archive](https://gtfs-sandbox-dds.rnv-online.de/). The first run downloads its historical ZIPs published from December 2024 through December 2025 (64 archives, about 220 MB, when this analysis was run). December 2024 is included because those timetables may still apply in early January. For each 2025 date, the script selects the latest already-published archive with valid tram service.

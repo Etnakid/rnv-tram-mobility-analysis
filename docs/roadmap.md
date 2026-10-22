@@ -46,4 +46,4 @@ If the feed is unsuitable, publish that limitation and retain the module as unco
 - Write neutral narrative conclusions supported by results.
 - Ask an independent reviewer to reproduce the published release.
 
-Intercity scope: the dashboard now compares three city pairs in both directions between fixed hubs. Only direct trams are counted; transfers remain outside scope by user choice. The 2025 output contains 2,190 directional date records: 2,166 usable and 24 clock-change exclusions. Twelve targeted checks pass. Power BI model parsing and file references pass; Desktop refresh and rendering remain unverified.
+Intercity scope: the dashboard now compares three city pairs in both directions between fixed hubs. Only direct trams are counted; transfers remain outside scope by user choice. The 2025 output contains 2,190 directional date records: 2,166 usable and 24 clock-change exclusions. Power BI model parsing and file references pass; Desktop refresh and rendering remain unverified.
