@@ -8,7 +8,7 @@ The [official archive index](https://gtfs-sandbox-dds.rnv-online.de/) lists date
 
 Downloaded 64 snapshots published from December 2024 through December 2025, including the preceding month for January coverage. All identify Rhein-Neckar-Verkehr GmbH (rnv) as the sole agency. Observed mode codes are 0 (tram) and 3 (bus); the code also recognises extended tram codes. Every 2025 date has at least one active tram service in an already-published snapshot. This is date coverage, not proof of a complete network.
 
-See data/manifests/feeds_2025.json for exact URLs, SHA-256 hashes, sizes, inspection timestamps and covered dates. Attribution: Rhein-Neckar-Verkehr GmbH (rnv). The archive is catalogued as dl-de/by-2-0; raw ZIPs are kept locally and not redistributed here. Annual records retain quality flags; they describe scheduled service, not passenger demand or observed operation.
+Download links are listed in the [official rnv archive](https://gtfs-sandbox-dds.rnv-online.de/). The script selects archives by publication date and checks their service calendars directly. Attribution: Rhein-Neckar-Verkehr GmbH (rnv). The archive is catalogued as dl-de/by-2-0; raw ZIPs are kept locally and not redistributed here. Annual records retain quality flags; they describe scheduled service, not passenger demand or observed operation.
 
 | Source | Intended role | Current status |
 |---|---|---|
@@ -21,7 +21,7 @@ See data/manifests/feeds_2025.json for exact URLs, SHA-256 hashes, sizes, inspec
 
 ## Before accepting a data source
 
-Record exact download URL, publisher, retrieval time in UTC, SHA-256, feed validity, timezone, format, licence text/URL and required attribution. Keep the catalogue URL as well as the resource URL. Verify redistribution separately from access.
+Keep the publisher and source link clear, check timetable validity and terms, and distinguish access from permission to redistribute.
 
 For rail timetables, inspect agency.txt, routes.txt and active trips and reconcile them with the official rnv network. Check interurban routes and replacement services explicitly. Publish a coverage report before using the feed for comparisons.
 

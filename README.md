@@ -45,7 +45,9 @@ python scripts/annual_stops.py
 python -m unittest discover -s scripts -p test_timetables.py
 ```
 
-The first run downloads the 64 archives listed in `data/manifests/feeds_2025.json` (about 220 MB). Each file is checked against its recorded SHA-256. Archives stay in `data/raw/`; results are written to `data/processed/annual_stop_days.json`. Later runs reuse the local archives. The scripts use the standard library; Windows additionally needs the timezone database listed in `requirements.txt`.
+The source is the [official rnv timetable archive](https://gtfs-sandbox-dds.rnv-online.de/). The first run downloads its historical ZIPs published from December 2024 through December 2025 (64 archives, about 220 MB, when this analysis was run). December 2024 is included because those timetables may still apply in early January. For each 2025 date, the script selects the latest already-published archive with valid tram service.
+
+Archives stay in `data/raw/`; results are written to `data/processed/annual_stop_days.json`. Later runs reuse the local ZIPs. The scripts use the standard library; Windows additionally needs the timezone database listed in `requirements.txt`.
 
 For Power Query, create the `ProjectFolder` parameter using `powerbi/ProjectFolder.m` and replace the placeholder with this repository's full local folder path. Create a blank query named `ServiceDays` and paste `powerbi/ServiceDays.m` into its Advanced Editor. After loading it, create each measure in `powerbi/measures.dax` separately. The packaged Power BI dashboard is not published yet.
 

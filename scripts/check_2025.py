@@ -1,7 +1,6 @@
-"""Download the reviewed archives and select a timetable for each day."""
+"""Download historical rnv timetables and select one for each 2025 day."""
 import csv
 import datetime as dt
-import hashlib
 import io
 import json
 from pathlib import Path
@@ -12,6 +11,7 @@ from zoneinfo import ZoneInfo
 ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / 'data/raw'
 OUT = ROOT / 'data/processed'
+ARCHIVE = 'https://gtfs-sandbox-dds.rnv-online.de/'
 TRAM_TYPES = {'0', '900', '901', '902', '903', '904', '905', '906'}
 WEEKDAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 YEAR_DAYS = [dt.date(2025, 1, 1) + dt.timedelta(days=n) for n in range(365)]
@@ -46,21 +46,34 @@ def active_services(calendar, exceptions, day):
 def main():
     RAW.mkdir(parents=True, exist_ok=True)
     OUT.mkdir(parents=True, exist_ok=True)
-    manifest = ROOT / 'data/manifests/feeds_2025.json'
-    feeds = json.loads(manifest.read_text(encoding='utf-8'))
-    # Use the same reviewed archives each time, checking that their contents match.
-    for feed in feeds:
-        path = RAW / (feed['snapshot'] + '.zip')
+    with urllib.request.urlopen(ARCHIVE, timeout=60) as response:
+        index = json.load(response)
+    feeds = []
+    # December 2024 timetables may still be valid at the start of January.
+    for item in sorted(index, key=lambda item: item['dir']):
+        stamp = item['dir']
+        if not stamp.isdigit():
+            continue
+        published = dt.datetime.fromtimestamp(int(stamp) / 1000, dt.timezone.utc).date()
+        if not dt.date(2024, 12, 1) <= published <= dt.date(2025, 12, 31):
+            continue
+        path = RAW / (stamp + '.zip')
         if not path.exists():
-            with urllib.request.urlopen(feed['url'], timeout=60) as response:
+            with urllib.request.urlopen(ARCHIVE + stamp + '/gtfs.zip', timeout=60) as response:
                 data = response.read(50_000_001)
             if len(data) > 50_000_000:
                 raise ValueError('Archive exceeds 50 MB')
-            if hashlib.sha256(data).hexdigest() != feed['sha256']:
-                raise ValueError('Downloaded archive differs: ' + feed['snapshot'])
             path.write_bytes(data)
-        if hashlib.sha256(path.read_bytes()).hexdigest() != feed['sha256']:
-            raise ValueError('Local archive differs: ' + feed['snapshot'])
+        with zipfile.ZipFile(path) as archive:
+            routes = {r['route_id'] for r in read_table(archive, 'routes.txt')
+                      if r['route_type'] in TRAM_TYPES}
+            services = {t['service_id'] for t in read_table(archive, 'trips.txt')
+                        if t['route_id'] in routes}
+            calendar = read_table(archive, 'calendar.txt')
+            exceptions = read_table(archive, 'calendar_dates.txt')
+            days = {str(day) for day in YEAR_DAYS
+                    if active_services(calendar, exceptions, day) & services}
+        feeds.append(dict(snapshot=stamp, days_with_tram_service=days))
     rows = []
     for day in YEAR_DAYS:
         midnight = dt.datetime.combine(day, dt.time(), ZoneInfo('Europe/Berlin'))
