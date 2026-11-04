@@ -2,9 +2,11 @@
 
 How does the rnv tram network connect everyday life across the Rhein-Neckar region?
 
+I usually get around by car, but every now and then I have taken the trams in this area. Those trips made me wonder how well Mannheim, Ludwigshafen and Heidelberg are connected, and what changes in the evening, at weekends and during school breaks.
+
 This independent portfolio project currently compares direct rnv tram services between Mannheim, Ludwigshafen and Heidelberg, in both directions. It uses fixed hubs: Mannheim Hauptbahnhof, Ludwigshafen Berliner Platz (Bf LU Mitte), and Heidelberg Hauptbahnhof including Hauptbahnhof West. The five original research questions below remain the wider project context; accessibility and real-time reliability are not implemented.
 
-**Study period: 1 January–31 December 2025.** The analysis uses 64 reviewed historical archives and produces 2,190 directional date records. Each direction has 361 usable dates and four clock-change exclusions. Dashboard files and narrative conclusions are still being reviewed locally and are not part of this release.
+**Study period: 1 January–31 December 2025.** The analysis uses 64 reviewed historical archives and produces 2,190 directional date records. Each direction has 361 usable dates and four clock-change exclusions. The Power BI dashboard is still being reviewed locally and is not part of this release.
 
 ## Five research questions
 
@@ -23,6 +25,16 @@ Count tram trips that allow boarding at the origin hub and alighting later at th
 Exclude ordinary bus routes, S-Bahn, regional and long-distance rail from the core comparison. Record rail-replacement buses separately so construction does not appear as an unexplained loss of service. rnv is the operator; VRN is the wider transport association.
 
 A tram-only analysis cannot establish total public-transport accessibility. Scheduled service is not observed operation. Real-time predictions alone do not prove actual punctuality or cancellations.
+
+## What I found
+
+From Mannheim to Heidelberg, the median gap between direct tram departures rises from 10 minutes during the day (06:00–20:00) to 30 minutes in the evening (22:00–02:00 the next day). For Mannheim to Ludwigshafen, the median number of daytime departures is 125 on weekdays outside school breaks and 95 on Sundays.
+
+Between 11 and 24 October, the timetable records no matching direct tram departures between the selected Mannheim and Ludwigshafen hubs in the studied windows. I found an rnv notice about construction around Berliner Platz and Wittelsbachplatz, with service changes from 11 to 26 October. This gives useful context for the gap, although the timetable alone cannot confirm what ran on the street ([rnv notice republished by MRN-News](https://www.mrn-news.de/2025/10/02/ludwigshafen-sperrungen-im-bereich-berliner-platz-und-wittelsbachplatz-604990/); [SWR report](https://www.swr.de/swraktuell/rheinland-pfalz/ludwigshafen/haltestelle-berliner-platz-und-rhein-haardtbahn-wegen-bauarbeiten-und-gleiserneuerung-gesperrt-100.html)).
+
+For the selected hubs and time windows, the data contains no direct tram service between Ludwigshafen and Heidelberg. Since this analysis follows direct trams only, it does not describe journeys with a change.
+
+I was sorry not to find suitable data on delays or passenger numbers. I had hoped to look at punctuality and crowding too, but the available sources did not give me enough evidence. Timetables show one part of a trip; the experience on board is another.
 
 ## Start here
 
@@ -54,6 +66,7 @@ Daytime is 06:00–20:00; evening is 22:00–02:00 the next day. Use one directi
 
 ## Next milestone
 
-Complete the holiday-timetable spot-checks and verify data loading and visual layout in Power BI Desktop before publishing the dashboard. Finalise the README introduction and conclusions together.
+Complete the holiday-timetable spot-checks and verify data loading and visual layout in Power BI Desktop before publishing the dashboard.
 
 Independent analysis, not an official rnv or VRN product. Source datasets retain their respective terms.
+
