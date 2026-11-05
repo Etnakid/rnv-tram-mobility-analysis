@@ -46,4 +46,4 @@ If the feed is unsuitable, publish that limitation and retain the module as unco
 - Write neutral narrative conclusions supported by results.
 - Ask an independent reviewer to reproduce the published release.
 
-Intercity scope: the dashboard now compares three city pairs in both directions between fixed hubs. Only direct trams are counted; transfers remain outside scope by user choice. The 2025 output contains 2,190 directional date records: 2,166 usable and 24 clock-change exclusions. Power BI model parsing and file references pass; Desktop refresh and rendering remain unverified.
+The comparison now covers three city pairs in both directions between fixed hubs. I count direct trams only, so trips with a change are outside this analysis. I removed all 12 legal holidays from the calculations. The result has 2,118 directional date records: 2,094 usable and 24 clock-change exclusions. I have not checked the Power BI query in Desktop yet, and this repository does not include a PBIX or PBIP report.

@@ -4,7 +4,7 @@ import datetime as dt
 import json
 import statistics
 import zipfile
-from check_2025 import RAW, OUT, TRAM_TYPES, YEAR_DAYS, active_services, read_table
+from check_2025 import ROOT, RAW, OUT, TRAM_TYPES, YEAR_DAYS, active_services, read_table
 
 HUBS = {
     'Mannheim': ['MA Hauptbahnhof'],
@@ -105,6 +105,8 @@ def window_stats(departures, start, end):
     }
 
 def main():
+    calendar = json.loads((ROOT / 'data/reference/calendar_2025.json').read_text(encoding='utf-8'))
+    holiday_dates = {row['date'] for row in calendar['days'] if row['public_holiday']}
     coverage = {r['date']: r['selected_snapshot']
                 for r in json.loads((OUT / 'coverage_2025.json').read_text())}
     coverage['2024-12-31'] = coverage['2025-01-01']
@@ -132,6 +134,9 @@ def main():
     for origin, target in CONNECTIONS:
         pair = (origin, target)
         for day in YEAR_DAYS:
+            # Keep public holidays as calendar references, not analysis days.
+            if str(day) in holiday_dates:
+                continue
             tomorrow = day + dt.timedelta(days=1)
             midnight = dt.datetime.combine(day, dt.time())
             status = 'clock_change_excluded' if str(day) in DST_DATES else 'ok'
@@ -144,8 +149,9 @@ def main():
                 evening = window_stats(values, midnight + dt.timedelta(hours=22), midnight + dt.timedelta(days=1, hours=2))
             results.append(dict(case=origin + ' → ' + target, date=str(day), state=STATES[origin],
                                 status=status, daytime=daytime, evening=evening))
-    assert len(results) == 2190
-    assert len({(r['case'], r['date']) for r in results}) == 2190
+    assert len(results) == 2118
+    assert len({(r['case'], r['date']) for r in results}) == 2118
+    assert not holiday_dates.intersection(r['date'] for r in results)
     # Different trams may depart at the same minute; keep both departures.
     output = OUT / 'annual_stop_days.json'
     output.write_text(json.dumps(results, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')

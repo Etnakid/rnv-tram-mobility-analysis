@@ -34,6 +34,8 @@ Il 31 ottobre 2025 in BW è senza lezioni (Reformationsfest), ma non è una fest
 
 ## Limiti e uso
 
+Tutte le 12 date festive legali restano documentate come riferimento, ma sono escluse dai calcoli perché gli orari effettivamente applicati non sono verificabili per tutte le date.
+
 - Il file giornaliero contiene 365 date per ciascuno dei tre Länder (1.095 righe logiche).
 - Le vacanze natalizie che attraversano il confine annuale mantengono gli intervalli originali; il calendario giornaliero è limitato al 2025.
 - Sabati, domeniche, festivi e vacanze hanno indicatori separati e possono sovrapporsi.

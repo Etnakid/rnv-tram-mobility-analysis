@@ -57,4 +57,4 @@ There is a direct conflict for three dates. A [22 December 2024 report](https://
 
 For 6 January, 1 May and 29 May, I did not find a dated 2025 rnv notice or a public-facing timetable in the sources checked. The line-by-line recounts for 1 May (190 trips toward Ludwigshafen; 188 back) and 29 May (220; 221) verify the arithmetic within the archive only. They are not independent confirmation of the holiday service.
 
-To compare actual holiday timetables, the next step is to find date-valid, passenger-facing schedules or dated rnv notices for the remaining dates and check the selected hubs by hand. Until then, the dashboard and README should not describe these GTFS counts as confirmed holiday service.
+The project does not estimate holiday service from these weekly counts. All 12 legal-holiday dates are excluded from the daily analysis and Power Query results; the calendar and these source checks remain as documentation.

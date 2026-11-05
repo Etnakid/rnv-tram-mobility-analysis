@@ -1,6 +1,6 @@
 # Scope and analytical method
 
-Study period: 1 January–31 December 2025. Verify historical timetable coverage for every date before annual comparisons. See calendar_2025.md for state-level holidays and school breaks; local movable closures remain unknown. The reference calendar provides context and never overrides service calendars.
+Study period: 1 January–31 December 2025. Verify historical timetable coverage for every date before annual comparisons. See calendar_2025.md for state-level holidays and school breaks; local movable closures remain unknown. Public holidays stay in the reference calendar but are excluded from service calculations because the historical holiday timetables could not be verified.
 
 ## Network boundary
 
@@ -12,7 +12,7 @@ Replacement buses belong in a separate disruption layer linked to their rail cor
 
 ## Calendar and time
 
-Choose explicit dates only after inspecting feed validity. Compare ordinary weekdays, Saturdays and Sundays; identify public holidays and school-calendar effects. Resolve calendar.txt together with calendar_dates.txt.
+Choose explicit dates only after inspecting feed validity. Compare ordinary weekdays, Saturdays and Sundays, and account for regional school breaks. Resolve calendar.txt together with calendar_dates.txt. Keep legal holidays out of calculations unless their actual timetable can be verified.
 
 Use the feed timezone and preserve GTFS times beyond 24:00:00. For an evening window of 22:00–02:00, include relevant services from both the current and previous service dates, convert them to dated local timestamps and deduplicate departures. Check daylight-saving transitions.
 
@@ -30,4 +30,4 @@ Calculate headways for each stop, direction and compatible destination pattern. 
 
 Check primary and foreign keys, active service dates, monotonic stop sequences/times, valid coordinates, route coverage, pickup restrictions, duplicate snapshots and unknown accessibility values. If frequencies.txt is present, handle frequency-based service explicitly.
 
-Check selected stop/day timetables against official passenger information. Keep the source link, selection rules, exclusions and execution steps clear. The October construction notice has been cross-checked, while holiday departure counts still need an external timetable check.
+Check selected stop/day timetables against official passenger information. Keep the source link, selection rules, exclusions and execution steps clear. The October construction notice has been cross-checked. Legal holidays remain documented as calendar dates but are excluded from this analysis.

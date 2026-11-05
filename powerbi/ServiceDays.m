@@ -92,16 +92,21 @@ let
             "en-US"
         ),
 
-    // Match each date to its state, as holidays and school breaks differ.
+    // Match each date to its state for school-break information.
     CalendarSource = Json.Document(File.Contents(Folder & "\data\reference\calendar_2025.json")),
     CalendarRaw = Table.FromRecords(CalendarSource[days]),
+    HolidayRows = Table.SelectRows(CalendarRaw, each [public_holiday] <> null),
+    HolidayDates = List.Buffer(
+        List.Distinct(
+            List.Transform(Table.Column(HolidayRows, "date"), each Date.FromText(_))
+        )
+    ),
     CalendarSelected =
         Table.SelectColumns(
             CalendarRaw,
             {
                 "date",
                 "state",
-                "public_holiday",
                 "in_official_school_break",
                 "additional_state_school_free_days"
             }
@@ -112,7 +117,6 @@ let
             {
                 {"date", "Date"},
                 {"state", "State"},
-                {"public_holiday", "PublicHoliday"},
                 {"in_official_school_break", "RegionalSchoolBreak"},
                 {"additional_state_school_free_days", "SchoolFreeDays"}
             }
@@ -123,7 +127,6 @@ let
             {
                 {"Date", type date},
                 {"State", type text},
-                {"PublicHoliday", type text},
                 {"RegionalSchoolBreak", type logical}
             },
             "en-US"
@@ -145,17 +148,18 @@ let
         if Table.RowCount(Table.SelectRows(Joined, each Table.RowCount([Calendar]) <> 1)) > 0
         then error "A service date has no unique state calendar match."
         else Joined,
+    // Exclude every legal-holiday date before the report calculates its measures.
+    NonHolidayDays = Table.SelectRows(CompleteCalendar, each not List.Contains(HolidayDates, [Date])),
     ExpandedCalendar =
         Table.ExpandTableColumn(
-            CompleteCalendar,
+            NonHolidayDays,
             "Calendar",
-            {"PublicHoliday", "RegionalSchoolBreak", "SchoolFreeDays"}
+            {"RegionalSchoolBreak", "SchoolFreeDays"}
         ),
 
-    // Give public holidays priority, then separate weekends and weekdays.
+    // Separate weekends and school-break weekdays.
     DayGroup = Table.AddColumn(ExpandedCalendar, "DayGroup", each
-        if [PublicHoliday] <> null then "Public holiday"
-        else if Date.DayOfWeek([Date], Day.Monday) = 5 then "Saturday"
+        if Date.DayOfWeek([Date], Day.Monday) = 5 then "Saturday"
         else if Date.DayOfWeek([Date], Day.Monday) = 6 then "Sunday"
         else if [RegionalSchoolBreak] or List.Count([SchoolFreeDays]) > 0 then "Weekday, regional school break"
         else "Weekday, outside regional school break", type text),
@@ -165,9 +169,8 @@ let
         if [DayGroup] = "Weekday, outside regional school break" then 1
         else if [DayGroup] = "Weekday, regional school break" then 2
         else if [DayGroup] = "Saturday" then 3
-        else if [DayGroup] = "Sunday" then 4 else 5, Int64.Type),
+        else 4, Int64.Type),
     Month = Table.AddColumn(GroupOrder, "Month", each Date.StartOfMonth([Date]), type date),
     Result = Table.RemoveColumns(Month, {"SchoolFreeDays"})
 in
     Result
-
