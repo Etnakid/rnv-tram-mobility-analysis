@@ -56,3 +56,8 @@ For Mannheim Hauptbahnhof → Berliner Platz, the archived GTFS analysis counts 
 ## Labour Day 2025 count check
 
 No dated rnv notice or public-facing timetable for 1 May 2025 was found in the sources checked. I manually recounted the archived GTFS departures for that date by tram line. This reproduces 190 daytime trips from Mannheim to Ludwigshafen (line 4: 84; 4A: 38; 6: 45; 9X: 23) and 188 in the reverse direction (4: 81; 4A: 41; 6: 43; 9X: 23). The counts include separate trips that depart in the same minute. This confirms the arithmetic against the archive itself, not against an independent passenger-facing timetable.
+
+
+## Ascension Day 2025 count check
+
+No dated rnv notice or public-facing timetable for 29 May 2025 was found in the sources checked. A line-by-line recount of the selected GTFS archive reproduces 220 daytime trips from Mannheim to Ludwigshafen (line 4: 84; 4A: 38; 6: 75; 9X: 23) and 221 in the reverse direction (4: 81; 4A: 41; 6: 76; 9X: 23). Compared with 1 May, the archive has more line 6 trips on this date; without a dated rnv notice, the reason is unverified. This is an internal check of the GTFS counts, not an independent passenger-facing timetable confirmation.
