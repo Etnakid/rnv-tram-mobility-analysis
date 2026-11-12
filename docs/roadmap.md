@@ -18,7 +18,9 @@ I want to finish a small study that another person can understand and run. The f
 - [x] Inspect matching hub stop records in five selected feeds.
 - [x] Compare 11 departures on four dates with a printed line 5 timetable.
 - [x] Check October construction dates against an official city notice.
-- [ ] Resolve the Sunday destination difference found in the sample.
+- [x] Find an official explanation and possible E continuations for the Sunday sample.
+- [x] Explain that single-trip counts can miss through services.
+- [ ] Verify vehicle links before counting separate trip records as one journey.
 - [ ] Check physical hub platforms and matching tram lines against dated plans.
 - [ ] Compare a weekday, Saturday, Sunday and school-break date with dated passenger timetables.
 - [ ] Include an October construction date in the checks.
@@ -27,6 +29,8 @@ I want to finish a small study that another person can understand and run. The f
 Done when the sample checks are documented and any unresolved differences are clear. Repeating the GTFS calculation alone is not an independent timetable check.
 
 ### 3. Finish Power BI
+
+- [x] Prepare a short setup guide and reference values for one report page.
 
 - [ ] Refresh `ServiceDays` in Power BI Desktop.
 - [ ] Check every measure against the Python output.

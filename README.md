@@ -4,7 +4,7 @@ How do direct trams connect three city hubs during the day and in the evening?
 
 I usually get around by car, but every now and then I have taken the trams in this area. Those trips made me wonder how well Mannheim, Ludwigshafen and Heidelberg are connected, and what changes in the evening, at weekends and during school breaks.
 
-I compare direct rnv tram services between Mannheim, Ludwigshafen and Heidelberg in 2025, in both directions. I use three fixed hubs:
+I compare tram departures between Mannheim, Ludwigshafen and Heidelberg in 2025, in both directions. Both hubs must appear in the same trip record in the data. I use three fixed hubs:
 
 - Mannheim Hauptbahnhof.
 - Ludwigshafen Berliner Platz (Bf LU Mitte).
@@ -16,7 +16,7 @@ I look at departures and gaps between trams by month and day group. This is a co
 
 The Python calculation has been run again with 64 historical archives. It produces 2,118 direction/date records: 2,028 usable records and 90 flagged records. Each direction has 338 usable dates. See the [validation notes](docs/validation.md) for the checks and their limits.
 
-A [small timetable sample](docs/sample_checks.md) matches the departure times on four dates, but a Sunday destination differs between the printed timetable and the GTFS. This still needs a check before the hub totals can be treated as independently verified.
+A [small timetable sample](docs/sample_checks.md) matches departure times on four dates. It also shows an important limit: some line 5 trams can continue as line E under a new trip record. The current calculation does not join these records, so it can miss journeys where passengers stay on the tram. The figures are not the complete number of no-change connections.
 
 Power Query and DAX files are included, but they still need a refresh and visual check in Power BI Desktop. This repository does not yet include a finished dashboard.
 
@@ -34,7 +34,7 @@ From Mannheim to Heidelberg, the median gap between direct tram departures rises
 
 Between 11 and 24 October, the timetable records no matching direct tram departures between the selected Mannheim and Ludwigshafen hubs in the studied windows. I found an rnv notice about construction around Berliner Platz and Wittelsbachplatz, with service changes from 11 to 26 October. This gives useful context for the gap, although the timetable alone cannot confirm what ran on the street ([rnv notice republished by MRN-News](https://www.mrn-news.de/2025/10/02/ludwigshafen-sperrungen-im-bereich-berliner-platz-und-wittelsbachplatz-604990/); [SWR report](https://www.swr.de/swraktuell/rheinland-pfalz/ludwigshafen/haltestelle-berliner-platz-und-rhein-haardtbahn-wegen-bauarbeiten-und-gleiserneuerung-gesperrt-100.html)).
 
-For the selected hubs and time windows, the data contains no direct tram service between Ludwigshafen and Heidelberg. Since this analysis follows direct trams only, it does not describe journeys with a change.
+For the selected hubs and time windows, I found no single tram trip record containing both Ludwigshafen and Heidelberg hubs. This does not prove that every journey needs a change: linked trips and journeys with transfers are not included.
 
 I was sorry not to find suitable data on delays or passenger numbers. I had hoped to look at punctuality and crowding too, but the available sources did not give me enough evidence. Timetables show one part of a trip; the experience on board is another.
 
@@ -46,6 +46,7 @@ I was sorry not to find suitable data on delays or passenger numbers. I had hope
 - [Delivery roadmap](docs/roadmap.md)
 - [Checks and remaining limits](docs/validation.md)
 - [Passenger timetable samples and source checks](docs/sample_checks.md)
+- [Power BI setup, one step at a time](powerbi/README.md)
 - [Data handling](data/README.md)
 
 The reviewed 2025 calendar is supplied under `data/reference/`. Python removes public-holiday rows and flags the other excluded dates. Power Query joins the reference calendar and creates the day groups; DAX calculates the medians from usable rows.
@@ -70,7 +71,7 @@ Daytime is 06:00–20:00; evening is 22:00–02:00 the next day. These windows h
 
 Departure indicators are medians of daily counts. Gap indicators are medians of daily median gaps. They do not include the time from a window's start to the first tram, or from the last tram to its end. A day needs at least two departures to have a gap value. A blank gap is not zero and is left out of the gap median. These gaps are not measured passenger waiting times.
 
-A zero departure count means no matching direct tram was found in that window. It does not mean no public transport or no journey with a change. `Flagged days` counts retained rows with a quality flag; it does not include the 12 public-holiday dates removed before loading.
+A zero departure count means no matching single-trip tram record was found in that window. It does not mean no public transport or no journey with a change. `Flagged days` counts retained rows with a quality flag; it does not include the 12 public-holiday dates removed before loading.
 
 ## Next milestone
 

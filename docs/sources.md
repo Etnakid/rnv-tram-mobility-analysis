@@ -61,8 +61,12 @@ The project does not estimate holiday service from these weekly counts. All 12 l
 
 ## What still needs a check
 
-The Python calculation was run again on 12 November 2026. See [validation.md](validation.md) for the results. This confirms that the scripts run, not that the archive matches every passenger timetable. A [dated departure-time sample](sample_checks.md) now matches 11 departures on four dates, but a Sunday destination differs. Exact daily hub totals still need an independent check. The construction notice gives context for missing direct trams; replacement-bus trips are not counted by the code.
+The Python calculation was run again on 12 November 2026. See [validation.md](validation.md) for the results. This confirms that the scripts run, not that the archive matches every passenger timetable. A [dated departure-time sample](sample_checks.md) now matches 11 departures on four dates, with possible line 5 to E continuations on Sunday. Exact daily hub totals still need an independent check. The construction notice gives context for missing direct trams; replacement-bus trips are not counted by the code.
 
 ## Passenger-facing sources checked on 12 November 2026
 
-See [sample_checks.md](sample_checks.md) for source URLs, the printed timetable hash, four dated comparisons, the unresolved Sunday destination difference and five hub-record samples. The linked city notice gives an official source for the October return to Berliner Platz. Some rnv poster URLs now serve 2026 contents despite 2025 search snippets; those were not used to validate 2025 times.
+See [sample_checks.md](sample_checks.md) for source URLs, the printed timetable hash, four dated comparisons, the line-change evidence and its limits and five hub-record samples. The linked city notice gives an official source for the October return to Berliner Platz. Some rnv poster URLs now serve 2026 contents despite 2025 search snippets; those were not used to validate 2025 times.
+
+## Line changes and linked trips
+
+The [rnv article about line E](https://blog.rnv-online.de/der-joker-unter-den-linien/) explains that some trams from Heidelberg continue from Paradeplatz as line E via Mannheim Hauptbahnhof. The article is dated November 11, 2020. In the March 16, 2025 sample, two E trips start at the same stop ID and time where the checked line 5 trips end. This supports the explanation, but is not a vehicle-level confirmation for every 2025 journey. The calculation keeps separate trip records separate. See [sample_checks.md](sample_checks.md).

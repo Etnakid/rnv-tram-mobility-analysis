@@ -37,6 +37,31 @@ IF (
     )
 )
 
+// Count dates with a numeric gap. Blank gaps do not count.
+Days with daytime gap =
+IF (
+    HASONEVALUE ( ServiceDays[Connection] ),
+    COALESCE (
+        CALCULATE (
+            COUNT ( ServiceDays[DaytimeMedianGap] ),
+            KEEPFILTERS ( ServiceDays[DataStatus] = "ok" )
+        ),
+        0
+    )
+)
+
+Days with evening gap =
+IF (
+    HASONEVALUE ( ServiceDays[Connection] ),
+    COALESCE (
+        CALCULATE (
+            COUNT ( ServiceDays[EveningMedianGap] ),
+            KEEPFILTERS ( ServiceDays[DataStatus] = "ok" )
+        ),
+        0
+    )
+)
+
 // Median of daily medians, not a pooled median of every departure interval.
 Median daily daytime gap =
 IF (
@@ -71,14 +96,14 @@ VAR DaysWithService =
 RETURN
     IF (
         NOT HASONEVALUE ( ServiceDays[Connection] ),
-        "Choose one direction to explore its direct tram service.",
+        "Choose one direction to explore the trips found in the feed.",
         IF (
             Days = 0,
             "There are no usable days in this selection. Try a different month.",
             IF (
                 COALESCE ( DaysWithService, 0 ) = 0,
-                "No direct tram departures were found between these hubs during the studied hours in this selection. A journey with a change may still be possible.",
-                "The timetable shows direct trams on " & FORMAT ( DaysWithService, "0" )
+                "No single-trip tram departures were found between these hubs during the studied hours. Linked trips and journeys with a change are outside this count.",
+                "The feed contains matching trips on " & FORMAT ( DaysWithService, "0" )
                     & " of " & FORMAT ( Days, "0" ) & " usable days during the hours studied. "
                     & "A typical day has " & FORMAT ( Daytime, "0.#" )
                     & " daytime and " & FORMAT ( Evening, "0.#" )

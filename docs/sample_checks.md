@@ -14,14 +14,25 @@ I selected the 10:00–11:00 hour toward Schriesheim and Heidelberg on a weekday
 |---|---|---|---|---|---|
 | 2025-03-12 | Weekday outside regional break | 10:13, 10:33, 10:53 | 10:13, 10:33, 10:53 | 1741268517582 | Times match |
 | 2025-03-15 | Saturday | 10:13, 10:33, 10:53 | 10:13, 10:33, 10:53 | 1741268517582 | Times match |
-| 2025-03-16 | Sunday | 10:24, 10:54 | 10:24, 10:54 | 1741268517582 | Times match; destination differs |
+| 2025-03-16 | Sunday | 10:24, 10:54 | 10:24, 10:54 | 1741268517582 | Times match; possible line change |
 | 2025-04-15 | Weekday in regional break | 10:13, 10:33, 10:53 | 10:13, 10:33, 10:53 | 1744286404699 | Times match |
 
-### Destination difference on Sunday
+### Why the Sunday trip records look different
 
 The printed Sunday trips have a note giving Mannheim Hauptbahnhof as the destination. The GTFS trips `5-22-5-36780` and `5-22-5-38580` end at Paradeplatz and contain no `MA Hauptbahnhof` stop. The production script therefore does not count them as direct Heidelberg–Mannheim hub trips.
 
-I have not resolved this difference. A later timetable change, a feed problem or another explanation is possible; the sample does not establish which. I have not added trips or changed the counting rule to make the figures agree.
+The [official rnv explanation of line E, published November 11, 2020](https://blog.rnv-online.de/der-joker-unter-den-linien/), says that some trams from Heidelberg change from line 5 to line E at Paradeplatz and continue via Mannheim Hauptbahnhof. This describes the service pattern; it is not a dated confirmation of each 2025 vehicle.
+
+In the selected March 2025 archive, each sampled line 5 trip has one matching E trip starting at exactly the same stop ID and time:
+
+| Line 5 trip | Arrival at Paradeplatz | Stop ID | Possible next E trip | Arrival at MA Hauptbahnhof |
+|---|---|---|---|---|
+| 5-22-5-36780 | 11:36 | 245122 | 6-391-5-41760 | 11:41 |
+| 5-22-5-38580 | 12:06 | 245122 | 6-391-5-43560 | 12:11 |
+
+The publisher's explanation and the matching times support a line-change explanation for the sample. They do not prove the vehicle identity of each pair. The archive has no `block_id` field or `transfers.txt` table to link them. I record these as possible follow-on trips, but do not join them in the annual calculation.
+
+This is a known limit of the method: a single GTFS trip is not the same thing as every journey where a passenger can stay on the tram. The existing count can miss these journeys. It should not be used as the complete number of no-change connections.
 
 For the other three dates, the sampled GTFS trips contain both HD Hauptbahnhof and MA Hauptbahnhof later in their stop sequence. This checks the encoded path, not actual operation. The source does not give a separate exact validity-end date, so later changes cannot be ruled out.
 
@@ -35,7 +46,7 @@ After running the two main scripts:
 python scripts/check_sample.py
 ```
 
-The script writes `data/processed/sample_checks.json`, including snapshot IDs, trip IDs, departure times, final stops and whether MA Hauptbahnhof appears later. The expected times were read manually from the linked PDF; the script does not download or parse it. Inspect the linked page again if its contents change.
+The script writes `data/processed/sample_checks.json`, including snapshot IDs, trip IDs, departure times, final stops, whether MA Hauptbahnhof appears later and possible follow-on E trips. Possible follow-ons must start at the same stop ID and exact arrival time; they are evidence for review, not an automatic vehicle link. The expected times were read manually from the linked PDF; the script does not download or parse it. Inspect the linked page again if its contents change.
 
 ## 2. October works: an official city notice
 

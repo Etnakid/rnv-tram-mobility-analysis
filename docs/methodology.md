@@ -16,6 +16,12 @@ This checks date coverage. It does not prove that every line or trip is present.
 
 The script includes boarding platforms with the exact hub names. Some December feeds have blank stop names. A blank name is accepted only if the coordinates exactly match a hub position named in an earlier selected feed. I do not guess from nearby coordinates. This matching still needs a documented platform and line check.
 
+## A trip record can miss a through service
+
+Some trams change line number during a journey. rnv describes a line 5 to E service at Paradeplatz. In the checked Sunday sample, the data stores the two parts as separate trips. See the [sample evidence](sample_checks.md).
+
+I do not join separate trip records. Matching stops and times can suggest a connection, but do not prove that passengers stay on the same vehicle. The feed does not provide a vehicle link for the sample. This means the counts describe the single-trip records found, not all possible journeys without changing trams. I keep this limit visible in the report.
+
 ## Time windows and excluded dates
 
 - Daytime: 06:00 up to, but not including, 20:00.

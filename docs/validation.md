@@ -42,13 +42,13 @@ These checks use the generated JSON. The day groups were checked in Python using
 
 ## Passenger timetable and hub samples
 
-The [sample checks](sample_checks.md) compare 11 departures on four dates with a separate printed timetable. All departure times match, but two Sunday trips have a different destination in GTFS. This is an unresolved difference, not a full pass for the hub totals. Five selected archives were also checked for matching hub records. An official city notice supports the October construction dates.
+The [sample checks](sample_checks.md) compare 11 departures on four dates with a separate printed timetable. All departure times match. For two Sunday trips, an official rnv article and same-stop/time E trips support a line-change explanation. The archive lacks vehicle links, so the annual calculation does not join them. This is a known coverage limit, not a full pass for all no-change journeys. Five selected archives were also checked for matching hub records. An official city notice supports the October construction dates.
 
 Repeat the departure sample after the main calculation with `python scripts/check_sample.py`. The expected times were read manually from the printed source.
 
 ## What is still unverified
 
-- The sample checks do not independently verify complete daily hub totals. The Sunday destination difference remains unresolved.
+- The sample checks do not independently verify complete daily hub totals. Possible line 5 to E continuations are not included in the annual totals.
 - Hub stop records were inspected in five snapshots, but physical platforms and full line coverage have not been verified.
 - The holiday exclusions reduce uncertainty. They do not verify every remaining special timetable, such as Christmas Eve daytime service.
 - Power Query refresh, DAX measures and visual layout have not been tested in Power BI Desktop.
@@ -56,3 +56,7 @@ Repeat the departure sample after the main calculation with `python scripts/chec
 - No actual operations, delays, passenger counts or replacement-bus services were validated.
 
 For an existing local Power BI report, rename the old `Excluded days` measure to `Flagged days` and check any visuals that use it. The repository does not include a packaged report to update automatically.
+
+## Power BI preparation
+
+The [Desktop guide](../powerbi/README.md) gives one page to build and reference values to check. Two small DAX measures count the days used for daytime and evening gaps. Their expected counts were calculated in Python, but the DAX formulas and report still need to run in Desktop. No PBIX report or successful Desktop refresh is claimed.

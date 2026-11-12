@@ -21,24 +21,41 @@ def main():
         stamp = coverage[date]
         with zipfile.ZipFile(RAW / (stamp + '.zip')) as archive:
             stops = {r['stop_id']: r['stop_name'] for r in read_table(archive, 'stops.txt')}
-            routes = {r['route_id'] for r in read_table(archive, 'routes.txt')
-                      if r['route_short_name'] == '5' and r['route_type'] in TRAM_TYPES}
+            routes = {r['route_id']: r['route_short_name']
+                      for r in read_table(archive, 'routes.txt')
+                      if r['route_type'] in TRAM_TYPES}
             active = active_services(read_table(archive, 'calendar.txt'),
                                      read_table(archive, 'calendar_dates.txt'),
                                      dt.date.fromisoformat(date))
-            trips = {r['trip_id'] for r in read_table(archive, 'trips.txt')
+            trips = {r['trip_id']: r['route_id'] for r in read_table(archive, 'trips.txt')
                      if r['route_id'] in routes and r['service_id'] in active}
             times = read_table(archive, 'stop_times.txt')
         selected = {r['trip_id'] for r in times if r['trip_id'] in trips
+                    and routes[trips[r['trip_id']]] == '5'
                     and stops[r['stop_id']] == 'Leutershausen Bahnhof'
                     and r['departure_time'].startswith('10:')}
         by_trip = collections.defaultdict(list)
         for row in times:
-            if row['trip_id'] in selected:
-                by_trip[row['trip_id']].append(row)
-        departures = []
+            trip_id = row['trip_id']
+            if trip_id not in trips:
+                continue
+            line = routes[trips[trip_id]]
+            if trip_id in selected or line == 'E':
+                by_trip[trip_id].append(row)
+        # These are possible follow-on trips, not proof of the same vehicle.
+        starts = collections.defaultdict(list)
         for trip_id, rows in by_trip.items():
             rows.sort(key=lambda row: int(row['stop_sequence']))
+            if routes[trips[trip_id]] == 'E':
+                key = (rows[0]['stop_id'], rows[0]['departure_time'])
+                for row in rows:
+                    if stops[row['stop_id']] == 'MA Hauptbahnhof':
+                        starts[key].append(dict(trip_id=trip_id, line='E',
+                                                mannheim_arrival=row['arrival_time']))
+        departures = []
+        for trip_id, rows in by_trip.items():
+            if trip_id not in selected:
+                continue
             for index, row in enumerate(rows):
                 if stops[row['stop_id']] != 'Leutershausen Bahnhof':
                     continue
@@ -47,7 +64,10 @@ def main():
                     continue
                 departures.append(dict(time=row['departure_time'], trip_id=trip_id,
                                        reaches_mannheim_hbf='MA Hauptbahnhof' in later_names,
-                                       last_stop=stops[rows[-1]['stop_id']]))
+                                       last_stop=stops[rows[-1]['stop_id']],
+                                       end_time=rows[-1]['arrival_time'],
+                                       possible_follow_on_trips=starts[
+                                           (rows[-1]['stop_id'], rows[-1]['arrival_time'])]))
         departures.sort(key=lambda row: row['time'])
         results.append(dict(date=date, snapshot=stamp, expected_times=expected,
                             times_match=[r['time'] for r in departures] == expected,
