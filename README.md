@@ -16,6 +16,8 @@ I look at departures and gaps between trams by month and day group. This is a co
 
 The Python calculation has been run again with 64 historical archives. It produces 2,118 direction/date records: 2,028 usable records and 90 flagged records. Each direction has 338 usable dates. See the [validation notes](docs/validation.md) for the checks and their limits.
 
+A [small timetable sample](docs/sample_checks.md) matches the departure times on four dates, but a Sunday destination differs between the printed timetable and the GTFS. This still needs a check before the hub totals can be treated as independently verified.
+
 Power Query and DAX files are included, but they still need a refresh and visual check in Power BI Desktop. This repository does not yet include a finished dashboard.
 
 ## Scope and exclusions
@@ -43,6 +45,7 @@ I was sorry not to find suitable data on delays or passenger numbers. I had hope
 - [Source register and unresolved coverage](docs/sources.md)
 - [Delivery roadmap](docs/roadmap.md)
 - [Checks and remaining limits](docs/validation.md)
+- [Passenger timetable samples and source checks](docs/sample_checks.md)
 - [Data handling](data/README.md)
 
 The reviewed 2025 calendar is supplied under `data/reference/`. Python removes public-holiday rows and flags the other excluded dates. Power Query joins the reference calendar and creates the day groups; DAX calculates the medians from usable rows.

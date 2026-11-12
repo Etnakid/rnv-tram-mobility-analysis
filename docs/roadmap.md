@@ -15,7 +15,11 @@ I want to finish a small study that another person can understand and run. The f
 ### 2. Check the evidence
 
 - [x] Run the Python calculation again and check its output.
-- [ ] Check the hub platforms and matching tram lines in selected feeds.
+- [x] Inspect matching hub stop records in five selected feeds.
+- [x] Compare 11 departures on four dates with a printed line 5 timetable.
+- [x] Check October construction dates against an official city notice.
+- [ ] Resolve the Sunday destination difference found in the sample.
+- [ ] Check physical hub platforms and matching tram lines against dated plans.
 - [ ] Compare a weekday, Saturday, Sunday and school-break date with dated passenger timetables.
 - [ ] Include an October construction date in the checks.
 - [ ] Record the source, expected value, calculated value and any difference.

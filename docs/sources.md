@@ -61,4 +61,8 @@ The project does not estimate holiday service from these weekly counts. All 12 l
 
 ## What still needs a check
 
-The Python calculation was run again on 12 November 2026. See [validation.md](validation.md) for the results. This confirms that the scripts run, not that the archive matches every passenger timetable. A dated sample check is still needed. The construction notice gives context for missing direct trams; replacement-bus trips are not counted by the code.
+The Python calculation was run again on 12 November 2026. See [validation.md](validation.md) for the results. This confirms that the scripts run, not that the archive matches every passenger timetable. A [dated departure-time sample](sample_checks.md) now matches 11 departures on four dates, but a Sunday destination differs. Exact daily hub totals still need an independent check. The construction notice gives context for missing direct trams; replacement-bus trips are not counted by the code.
+
+## Passenger-facing sources checked on 12 November 2026
+
+See [sample_checks.md](sample_checks.md) for source URLs, the printed timetable hash, four dated comparisons, the unresolved Sunday destination difference and five hub-record samples. The linked city notice gives an official source for the October return to Berliner Platz. Some rnv poster URLs now serve 2026 contents despite 2025 search snippets; those were not used to validate 2025 times.

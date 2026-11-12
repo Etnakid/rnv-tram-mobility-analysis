@@ -40,10 +40,16 @@ The excluded evening dates are January 5, April 17, April 20, April 30, May 28, 
 
 These checks use the generated JSON. The day groups were checked in Python using the reference calendar. They do not prove that the Power Query and DAX implementation runs correctly in Desktop.
 
+## Passenger timetable and hub samples
+
+The [sample checks](sample_checks.md) compare 11 departures on four dates with a separate printed timetable. All departure times match, but two Sunday trips have a different destination in GTFS. This is an unresolved difference, not a full pass for the hub totals. Five selected archives were also checked for matching hub records. An official city notice supports the October construction dates.
+
+Repeat the departure sample after the main calculation with `python scripts/check_sample.py`. The expected times were read manually from the printed source.
+
 ## What is still unverified
 
-- Independent, dated passenger timetables have not yet been compared with a documented sample of calculated departures.
-- Hub platforms and matching lines still need a source-by-source sample check. No complete network coverage is claimed.
+- The sample checks do not independently verify complete daily hub totals. The Sunday destination difference remains unresolved.
+- Hub stop records were inspected in five snapshots, but physical platforms and full line coverage have not been verified.
 - The holiday exclusions reduce uncertainty. They do not verify every remaining special timetable, such as Christmas Eve daytime service.
 - Power Query refresh, DAX measures and visual layout have not been tested in Power BI Desktop.
 - Windows setup has not been tested in this run.
