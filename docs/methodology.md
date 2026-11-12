@@ -1,33 +1,44 @@
-# Scope and analytical method
+# Method
 
-Study period: 1 January–31 December 2025. Verify historical timetable coverage for every date before annual comparisons. See calendar_2025.md for state-level holidays and school breaks; local movable closures remain unknown. Public holidays stay in the reference calendar but are excluded from service calculations because the historical holiday timetables could not be verified.
+## Question and scope
 
-## Network boundary
+I compare direct tram departures between three fixed city hubs in 2025. I ask how the service changes during the day, in the evening, by month and by day group. The hub names are listed in the README and in `HUBS` in `scripts/annual_stops.py`.
 
-The unit of scope is the rnv tram/interurban rail network, not an assumed list of cities. Build an explicit inclusion table containing source agency ID, route ID, public line name, mode, inclusion decision, rationale and snapshot date. Check urban and interurban rail encodings rather than assuming a single GTFS route_type captures the whole network.
+I include only trips with a tram mode code and ordinary boarding at the origin and alighting later at the destination. The destination does not need to be the end of the line. Both directions are counted separately. Circular lines can have different paths and journey lengths. I do not calculate the fastest route or journeys with a change.
 
-Reconcile this table with the official rnv rail map and current service notices. Validate stops through trips and stop_times. Spatially join boarding-stop coordinates to dated municipal boundaries; inspect border cases and platforms manually. Publish exclusions and unmatched records. Do not infer the operator from a municipality or a line number alone.
+## Timetable selection
 
-Replacement buses belong in a separate disruption layer linked to their rail corridor. Keep regular-network maps separate from the service actually scheduled for the snapshot period.
+`check_2025.py` reads the official rnv archive index. It checks snapshots published from December 2024 through December 2025. For each date, it selects the latest snapshot published before local midnight that contains active tram service. It combines `calendar.txt` with additions and removals in `calendar_dates.txt`.
 
-## Calendar and time
+This checks date coverage. It does not prove that every line or trip is present. The selected snapshot for each date is saved in `coverage_2025.json`.
 
-Choose explicit dates only after inspecting feed validity. Compare ordinary weekdays, Saturdays and Sundays, and account for regional school breaks. Resolve calendar.txt together with calendar_dates.txt. Keep legal holidays out of calculations unless their actual timetable can be verified.
+## Hub matching
 
-Use the feed timezone and preserve GTFS times beyond 24:00:00. For an evening window of 22:00–02:00, include relevant services from both the current and previous service dates, convert them to dated local timestamps and deduplicate departures. Check daylight-saving transitions.
+The script includes boarding platforms with the exact hub names. Some December feeds have blank stop names. A blank name is accepted only if the coordinates exactly match a hub position named in an earlier selected feed. I do not guess from nearby coordinates. This matching still needs a documented platform and line check.
 
-Calculate headways for each stop, direction and compatible destination pattern. Report edge gaps and first/last departures separately. A scheduled headway is not an observed passenger waiting time; 60 divided by hourly departures can hide uneven service.
+## Time windows and excluded dates
 
-## Five analysis modules
+- Daytime: 06:00 up to, but not including, 20:00.
+- Evening: 22:00 up to, but not including, 02:00 the next day.
+- GTFS times above 24:00 are moved to their calendar date. The calculation reads service dates on both sides of the year to complete the windows.
+- All 12 public-holiday dates in the reference calendar are removed from the output. This is the same rule for every direction, even when a holiday applies in only one state.
+- A non-holiday date is flagged `holiday_window_excluded` if the next date is a listed holiday. December 31 is also flagged because its evening enters January 1, 2026. There are 11 such dates per direction.
+- Both windows are empty on a flagged date. I keep the same sample for the daytime and evening comparison, even though this removes some valid daytime data.
+- March 29–30 and October 25–26 are flagged `clock_change_excluded`.
+- Missing hub coverage is flagged `hub_missing`. No such rows appeared in the latest run.
 
-1. Evening: count boardable departures and measure service spans and gaps after 22:00; compare matched daytime windows.
-2. Commuting: define public employment destinations and reproducible arrival/departure scenarios. Include walking, interchange rules and transfer time. Describe tram-only journeys and the limits of destination coverage.
-3. Territory: compare stops and corridors within a documented geography. Avoid double-counting shared-track services or treating a municipality average as representative of every neighbourhood. Define central/outer categories before ranking results.
-4. Accessibility: distinguish platform access, vehicle boarding and complete journey accessibility. Missing or unknown attributes remain unknown. Date-stamp evidence; do not equate an accessible station label with every platform being accessible.
-5. Reliability: first establish real-time availability, matching keys and licence. Log observation time, feed timestamp, trip/stop identity and prediction horizon. Report collection gaps and stale records. Analyse prediction deviations unless actual arrival observations are demonstrably available. Missing updates alone do not establish cancellation.
+The output has 353 rows per direction: 338 usable dates, 11 holiday-window exclusions and four clock-change exclusions. The holiday rule reduces uncertainty; it does not independently verify the remaining timetables. Other special timetables, such as Christmas Eve, still need a check.
 
-## Validation before findings
+## Metrics
 
-Check primary and foreign keys, active service dates, monotonic stop sequences/times, valid coordinates, route coverage, pickup restrictions, duplicate snapshots and unknown accessibility values. If frequencies.txt is present, handle frequency-based service explicitly.
+I count departures within each window. Different trams at the same minute remain separate departures, including their zero-minute gap. For each date and window, I save the first and last departure, the median gap and the longest gap between departures.
 
-Check selected stop/day timetables against official passenger information. Keep the source link, selection rules, exclusions and execution steps clear. The October construction notice has been cross-checked. Legal holidays remain documented as calendar dates but are excluded from this analysis.
+Gap values need at least two departures. With zero or one departure the gap is empty, not zero. Gaps at the start and end of a window are not included. First and last values describe only the studied window, not the full service day.
+
+Power Query adds month and day groups using the departure state's school calendar. DAX uses rows with `DataStatus = "ok"`. It calculates daily-count medians and medians of daily median gaps. Empty gaps do not contribute to gap medians. The daytime and evening windows last 14 and four hours, so their totals are not a direct frequency comparison.
+
+`Flagged days` counts retained excluded rows. Public holidays have already been removed and are not part of this measure. Counts describe schedules, not actual operations or waiting times.
+
+## Remaining validation
+
+The Python run and output checks are recorded in [validation.md](validation.md). A sample still needs a comparison with independent, dated passenger timetables. Power Query and DAX have not been executed in Desktop. Replacement buses, accessibility, employment destinations and real-time data are future work.

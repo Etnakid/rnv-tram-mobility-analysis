@@ -1,6 +1,6 @@
 # Source register
 
-Updated: 5 November 2026. Web-page availability does not establish dataset completeness, download success or permission to redistribute.
+Updated: 12 November 2026. Web-page availability does not establish dataset completeness, download success or permission to redistribute.
 
 ## Historical rnv timetable check
 
@@ -39,7 +39,7 @@ The analysis now counts direct tram trips between three fixed hubs, in both dire
 
 Day groups follow the departure state's calendar, including on cross-border journeys. The windows remain 06:00–20:00 and 22:00–02:00. Missing hubs and clock-change dates are excluded. Different trips departing in the same minute are valid separate departures; their zero-minute intervals are retained. A zero count means no matching direct tram departure during that window, not no transport between the cities. Medians can be zero even when occasional direct services exist. Earlier single-line terminal examples are superseded.
 
-Some December archive stop names are blank. Those platforms are included only when their exact latitude/longitude matches a previously named hub platform from an earlier selected archive. Renumbered IDs alone are not trusted; no nearest-stop guess is used. All six directions have 361 usable dates and four clock-change exclusions. No matching direct departure was found for the Ludwigshafen–Heidelberg hub pair in either direction in the studied windows; this is an archive finding for these hubs, not a claim about every stop, every hour or transfer journeys.
+Some December archive stop names are blank. Those platforms are included only when their exact latitude/longitude matches a previously named hub platform from an earlier selected archive. Renumbered IDs alone are not trusted; no nearest-stop guess is used. Each direction now has 338 usable dates, 11 holiday-window exclusions and four clock-change exclusions. The 12 public-holiday dates are removed before these counts. No matching direct departure was found for the Ludwigshafen–Heidelberg hub pair in either direction in the studied windows; this is an archive finding for these hubs, not a claim about every stop, every hour or transfer journeys.
 
 ## October construction cross-check
 
@@ -49,12 +49,16 @@ The [rnv statement republished by MRN-News on 2 October 2025](https://www.mrn-ne
 
 I checked all 12 legal holidays listed in the [2025 reference calendar](calendar_2025.md): 1 January, 6 January, 18 April, 21 April, 1 May, 29 May, 9 June, 19 June, 3 October, 1 November, 25 December and 26 December. Epiphany on 6 January applies to Baden-Württemberg, not Rhineland-Palatinate; All Saints' Day on 1 November applies to both. The other dates apply in both states.
 
-The selected GTFS snapshot for each date has no matching date-specific entry in `calendar_dates.txt`. The calculation therefore activates trips from the weekly service calendar. It can count a Thursday calendar on a Thursday holiday, for example, but cannot by itself confirm which special holiday timetable rnv actually applied. The counts in `annual_stop_days.json` for these dates must be read as the timetable encoded by that snapshot, not as independently verified public-holiday service.
+The selected GTFS snapshot for each date has no matching date-specific entry in `calendar_dates.txt`. The calculation therefore activates trips from the weekly service calendar. It can count a Thursday calendar on a Thursday holiday, for example, but cannot by itself confirm which special holiday timetable rnv actually applied. Earlier calculations included these dates. Those counts described the weekly calendar in the snapshot, not independently verified holiday service. These dates are no longer in `annual_stop_days.json`.
 
 A useful check is 29 May (Ascension Day) and Sunday 1 June: both use snapshot `1747918025093`. The feed produces 220 daytime Mannheim → Ludwigshafen departures on Thursday and 95 on Sunday. This shows the snapshot distinguishes weekdays from Sundays; it does not show that the Thursday holiday used the Sunday timetable.
 
-There is a direct conflict for three dates. A [22 December 2024 report](https://www.mannheim24.de/mannheim/rnv-fahrplaene-heidelberg-mannheim-ludwigshafen-feiertage-weihnachten-silvester-zr-93482211.html) says Mannheim, Ludwigshafen and Heidelberg used the Sunday/public-holiday timetable on 1 January and 25–26 December 2025. The current GTFS output gives 220 daytime Mannheim → Ludwigshafen trips for those dates. This is a GTFS-derived count and does not verify the published holiday timetable. Earlier notes in this document that treated the 220 count as confirmation are superseded by this check.
+There is a direct conflict for three dates. A [22 December 2024 report](https://www.mannheim24.de/mannheim/rnv-fahrplaene-heidelberg-mannheim-ludwigshafen-feiertage-weihnachten-silvester-zr-93482211.html) says Mannheim, Ludwigshafen and Heidelberg used the Sunday/public-holiday timetable on 1 January and 25–26 December 2025. The earlier GTFS calculation gave 220 daytime Mannheim → Ludwigshafen trips for those dates. This is a GTFS-derived count and does not verify the published holiday timetable. Earlier notes in this document that treated the 220 count as confirmation are superseded by this check.
 
 For 6 January, 1 May and 29 May, I did not find a dated 2025 rnv notice or a public-facing timetable in the sources checked. The line-by-line recounts for 1 May (190 trips toward Ludwigshafen; 188 back) and 29 May (220; 221) verify the arithmetic within the archive only. They are not independent confirmation of the holiday service.
 
-The project does not estimate holiday service from these weekly counts. All 12 legal-holiday dates are excluded from the daily analysis and Power Query results; the calendar and these source checks remain as documentation.
+The project does not estimate holiday service from these weekly counts. All 12 legal-holiday dates are removed from the daily analysis and Power Query results. Eleven other dates per direction are flagged because the evening enters a holiday, including December 31 before January 1, 2026. Both windows are empty on these flagged dates. The calendar and the earlier source checks remain as documentation.
+
+## What still needs a check
+
+The Python calculation was run again on 12 November 2026. See [validation.md](validation.md) for the results. This confirms that the scripts run, not that the archive matches every passenger timetable. A dated sample check is still needed. The construction notice gives context for missing direct trams; replacement-bus trips are not counted by the code.

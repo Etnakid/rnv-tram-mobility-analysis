@@ -1,30 +1,30 @@
-# rnv Tram Mobility Analysis
+# rnv Direct Tram Connections — 2025
 
-How does the rnv tram network connect everyday life across the Rhein-Neckar region?
+How do direct trams connect three city hubs during the day and in the evening?
 
 I usually get around by car, but every now and then I have taken the trams in this area. Those trips made me wonder how well Mannheim, Ludwigshafen and Heidelberg are connected, and what changes in the evening, at weekends and during school breaks.
 
-This independent portfolio project currently compares direct rnv tram services between Mannheim, Ludwigshafen and Heidelberg, in both directions. It uses fixed hubs: Mannheim Hauptbahnhof, Ludwigshafen Berliner Platz (Bf LU Mitte), and Heidelberg Hauptbahnhof including Hauptbahnhof West. The five original research questions below remain the wider project context; accessibility and real-time reliability are not implemented.
+I compare direct rnv tram services between Mannheim, Ludwigshafen and Heidelberg in 2025, in both directions. I use three fixed hubs:
 
-**Study period: 1 January–31 December 2025.** The analysis uses 64 reviewed historical archives and produces 2,118 directional date records after excluding the 12 public holidays. Each direction has 349 usable dates; four clock-change dates are also excluded. I have not finished checking the Power BI report in Desktop, so I am leaving it out of this release.
+- Mannheim Hauptbahnhof.
+- Ludwigshafen Berliner Platz (Bf LU Mitte).
+- Heidelberg Hauptbahnhof, including Hauptbahnhof West.
 
-## Five research questions
+I look at departures and gaps between trams by month and day group. This is a comparison of these hubs, not every possible journey between the cities.
 
-| Theme | Question | Planned evidence |
-|---|---|---|
-| Evening service | Which corridors remain well connected after 22:00? | Scheduled departures, service spans and gaps by direction |
-| Commuting | Which connections support early starts and late finishes? | Timetable-based journeys to documented employment destinations |
-| Territory | How does service differ between central sections and outer branches? | Departures and headways by stop, corridor and municipality |
-| Accessibility | Which stops have documented step-free access, and where is information missing? | Platform-level attributes and explicit unknown values |
-| Reliability | How do real-time predictions differ from scheduled times? | A prospective collection, subject to feed coverage and terms |
+## Current status
 
-## Scope and interpretation
+The Python calculation has been run again with 64 historical archives. It produces 2,118 direction/date records: 2,028 usable records and 90 flagged records. Each direction has 338 usable dates. See the [validation notes](docs/validation.md) for the checks and their limits.
 
-Count tram trips that allow boarding at the origin hub and alighting later at the destination hub on the same trip. Include all platforms at the named hubs and all matching tram lines, in six directions. This compares these hubs, not every possible journey between the cities. No transfers or fastest-route calculation is included. Public holidays remain in the reference calendar but are excluded from every service calculation because the historical holiday timetables could not be verified. Other day groups use the departure state's calendar.
+Power Query and DAX files are included, but they still need a refresh and visual check in Power BI Desktop. This repository does not yet include a finished dashboard.
 
-Exclude ordinary bus routes, S-Bahn, regional and long-distance rail from the core comparison. Record rail-replacement buses separately so construction does not appear as an unexplained loss of service. rnv is the operator; VRN is the wider transport association.
+## Scope and exclusions
 
-A tram-only analysis cannot establish total public-transport accessibility. Scheduled service is not observed operation. Real-time predictions alone do not prove actual punctuality or cancellations.
+I count a trip when passengers can board at the origin hub and leave at the destination hub later on the same tram. All matching tram lines and platforms at the named hubs are included. Trips with a change, bus services, replacement buses, S-Bahn and regional trains are outside this calculation.
+
+I remove all 12 public-holiday dates listed in the reference calendar. I also flag 11 other dates because their evening window enters a public holiday, including 31 December before New Year's Day. I leave both daytime and evening results empty on these dates, so both windows use the same dates. Four clock-change dates are also flagged. This leaves some valid daytime data unused, but keeps the comparison simple.
+
+The same holiday exclusions apply to all directions. School-break groups use the departure state's calendar. Scheduled service does not show actual delays, cancellations or passenger numbers. Accessibility and the other original research ideas are [future work](docs/roadmap.md#future-work).
 
 ## What I found
 
@@ -42,9 +42,10 @@ I was sorry not to find suitable data on delays or passenger numbers. I had hope
 - [2025 holidays and school breaks](docs/calendar_2025.md)
 - [Source register and unresolved coverage](docs/sources.md)
 - [Delivery roadmap](docs/roadmap.md)
+- [Checks and remaining limits](docs/validation.md)
 - [Data handling](data/README.md)
 
-The reviewed 2025 calendar is supplied under `data/reference/`. Python leaves public-holiday dates out of the daily analysis file. Power Query joins the reference calendar and creates the remaining day groups; DAX calculates the medians.
+The reviewed 2025 calendar is supplied under `data/reference/`. Python removes public-holiday rows and flags the other excluded dates. Power Query joins the reference calendar and creates the day groups; DAX calculates the medians from usable rows.
 
 ## Reproduce the analysis
 
@@ -62,11 +63,15 @@ Archives stay in `data/raw/`; results are written to `data/processed/annual_stop
 
 For Power Query, create the `ProjectFolder` parameter using `powerbi/ProjectFolder.m` and replace the placeholder with this repository's full local folder path. Create a blank query named `ServiceDays` and paste `powerbi/ServiceDays.m` into its Advanced Editor. After loading it, create each measure in `powerbi/measures.dax` separately. The packaged Power BI dashboard is not published yet.
 
-Daytime is 06:00–20:00; evening is 22:00–02:00 the next day. Use one direction at a time. Public holidays are excluded; departure counts are daily medians over the remaining dates. Interval indicators are medians of daily median intervals, not measured passenger waiting times. A zero count describes the absence of matching direct trams in that window; it does not imply no public transport or no journey with a change.
+Daytime is 06:00–20:00; evening is 22:00–02:00 the next day. These windows have different lengths, so their departure totals do not directly compare service frequency. Use one direction at a time.
+
+Departure indicators are medians of daily counts. Gap indicators are medians of daily median gaps. They do not include the time from a window's start to the first tram, or from the last tram to its end. A day needs at least two departures to have a gap value. A blank gap is not zero and is left out of the gap median. These gaps are not measured passenger waiting times.
+
+A zero departure count means no matching direct tram was found in that window. It does not mean no public transport or no journey with a change. `Flagged days` counts retained rows with a quality flag; it does not include the 12 public-holiday dates removed before loading.
 
 ## Next milestone
 
-Verify data loading and visual layout in Power BI Desktop before publishing the dashboard.
+Check a sample against dated passenger timetables, then verify data loading and visual layout in Power BI Desktop before publishing the dashboard.
 
 Independent analysis, not an official rnv or VRN product. Source datasets retain their respective terms.
 

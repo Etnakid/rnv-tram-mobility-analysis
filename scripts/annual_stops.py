@@ -140,6 +140,10 @@ def main():
             tomorrow = day + dt.timedelta(days=1)
             midnight = dt.datetime.combine(day, dt.time())
             status = 'clock_change_excluded' if str(day) in DST_DATES else 'ok'
+            # Keep the same dates for both windows. The evening can enter a holiday.
+            # December 31 also enters January 1, outside the reference calendar.
+            if str(tomorrow) in holiday_dates or day == YEAR_DAYS[-1]:
+                status = 'holiday_window_excluded'
             if not {origin, target} <= present[day] & present[tomorrow]:
                 status = 'hub_missing'
             values = by_date[(pair, day)] + by_date[(pair, tomorrow)]

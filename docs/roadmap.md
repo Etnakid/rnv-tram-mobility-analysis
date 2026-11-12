@@ -1,49 +1,56 @@
-# Delivery roadmap
+# Roadmap
 
-## 0 — Project foundation (this release)
+## First version: direct tram connections in 2025
 
-- [x] Agree on the rnv tram/interurban rail scope.
-- [x] Preserve all five research questions.
-- [x] Document method, source candidates and evidence limits.
-- [ ] Acquire and verify transport data.
+I want to finish a small study that another person can understand and run. The first version compares direct trams between the three hubs. It does not need every original research idea to be complete.
 
-Progress on 22 October 2026: downloaded and inspected 64 historical feeds, found tram service on every 2025 date and ran a 10–16 March pilot. Historical line reconciliation and passenger-information spot-checks remain open, so the network verification milestone is not complete.
+### 1. Scope and calendar rules
 
-## 1 — Verified network inventory
+- [x] Define the hubs, six directions and two time windows.
+- [x] Download historical feeds and calculate the daily results.
+- [x] Remove public holidays and flag evenings that enter a holiday.
+- [x] Use the same dates for the daytime and evening comparison.
+- [x] Explain zero values, empty gaps and excluded dates.
 
-- Select a rail-inclusive timetable snapshot and record provenance/terms.
-- Publish the agency/route inclusion table and exclusions.
-- Reconcile line coverage with official maps.
-- Resolve boarding stops and municipal boundaries.
-- Deliver reproducible ingestion and meaningful integrity checks.
+### 2. Check the evidence
 
-Acceptance: another person can retrieve or obtain the documented input and reproduce the route/stop inventory. No unsupported total of cities or lines.
+- [x] Run the Python calculation again and check its output.
+- [ ] Check the hub platforms and matching tram lines in selected feeds.
+- [ ] Compare a weekday, Saturday, Sunday and school-break date with dated passenger timetables.
+- [ ] Include an October construction date in the checks.
+- [ ] Record the source, expected value, calculated value and any difference.
 
-## 2 — Scheduled service
+Done when the sample checks are documented and any unresolved differences are clear. Repeating the GTFS calculation alone is not an independent timetable check.
 
-- Implement service calendars and cross-midnight timestamps.
-- Analyse evening service and territorial differences.
-- Add documented commuting scenarios.
-- Publish metric definitions and spot-checks against timetables.
+### 3. Finish Power BI
 
-## 3 — Accessibility
+- [ ] Refresh `ServiceDays` in Power BI Desktop.
+- [ ] Check every measure against the Python output.
+- [ ] Check one-direction filters, empty results and excluded dates.
+- [ ] Build one or two pages with counts, gaps, monthly changes and clear notes.
+- [ ] Keep the number of days used for gap values visible.
 
-- Assess platform-level coverage and source age.
-- Publish accessible, inaccessible and unknown classifications separately.
+Done when refresh, filters and visuals have been checked in Desktop. The M and DAX files alone are not a finished dashboard.
 
-## 4 — Real-time feasibility and collection
+### 4. Publish the portfolio version
 
-- Verify access, licence, coverage and static-trip matching.
-- Specify observation period and sampling before collection.
-- Separate prediction quality from measured operating punctuality.
+- [ ] Include a report file or download link and dashboard screenshots.
+- [ ] Publish a small results table after checking the source terms.
+- [ ] Write three findings with their limits in simple English.
+- [ ] Ask another person to follow the setup instructions.
 
-If the feed is unsuitable, publish that limitation and retain the module as uncompleted.
+Done when a reader can inspect the results without downloading all the raw feeds and can also reproduce the calculation.
 
-## 5 — Presentation and independent reproduction
+## Future work
 
-- Build a dashboard from validated outputs.
-- Provide pinned dependencies, repeatable commands and a clean-environment check.
-- Write neutral narrative conclusions supported by results.
-- Ask an independent reviewer to reproduce the published release.
+These were the wider questions behind the project. They are not implemented in the first version.
 
-The comparison now covers three city pairs in both directions between fixed hubs. I count direct trams only, so trips with a change are outside this analysis. I removed all 12 legal holidays from the calculations. The result has 2,118 directional date records: 2,094 usable and 24 clock-change exclusions. I have not checked the Power BI query in Desktop yet, and this repository does not include a PBIX or PBIP report.
+| Topic | Possible next step |
+|---|---|
+| Evening service | Compare more stops and include gaps at window boundaries |
+| Commuting | Define work destinations and journeys with transfers |
+| Territory | Compare central sections and outer branches using documented areas |
+| Accessibility | Check platform-level sources and keep unknown values separate |
+| Reliability | Check real-time access and terms before collecting new observations |
+
+Replacement-bus data could also help explain construction periods. The current tram calculation does not count these buses.
