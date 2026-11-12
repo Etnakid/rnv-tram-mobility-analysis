@@ -1,10 +1,10 @@
-# Calendario di riferimento 2025
+# 2025 reference calendar
 
-Ambito: rete tranviaria rnv nei Länder Baden-Württemberg (BW), Rheinland-Pfalz (RP), Hessen (HE). Date iniziali e finali incluse. Verificato il 22 ottobre 2026.
+The calendar covers Baden-Württemberg (BW), Rheinland-Pfalz (RP) and Hessen (HE). Start and end dates are included. The dates were reviewed on 22 October 2026.
 
-## Festività legali
+## Public holidays
 
-| Data | Ricorrenza | Länder |
+| Date | Holiday | States |
 |---|---|---|
 | 2025-01-01 | Neujahr | BW, RP, HE |
 | 2025-01-06 | Erscheinungsfest | BW |
@@ -19,33 +19,33 @@ Ambito: rete tranviaria rnv nei Länder Baden-Württemberg (BW), Rheinland-Pfalz
 | 2025-12-25 | 1. Weihnachtsfeiertag | BW, RP, HE |
 | 2025-12-26 | 2. Weihnachtsfeiertag | BW, RP, HE |
 
-## Vacanze scolastiche ufficiali
+## Official school breaks
 
-| Periodo | Baden-Württemberg | Rheinland-Pfalz | Hessen |
+| Period | Baden-Württemberg | Rheinland-Pfalz | Hessen |
 |---|---|---|---|
 | Christmas 2024/25 | 2024-12-23 / 2025-01-04 | 2024-12-23 / 2025-01-08 | 2024-12-23 / 2025-01-10 |
 | Easter | 2025-04-14 / 2025-04-26 | 2025-04-14 / 2025-04-25 | 2025-04-07 / 2025-04-21 |
-| Pentecost | 2025-06-10 / 2025-06-20 | Nessuna pausa regionale prevista | Nessuna pausa regionale prevista |
+| Pentecost | 2025-06-10 / 2025-06-20 | No state-wide break | No state-wide break |
 | Summer | 2025-07-31 / 2025-09-13 | 2025-07-07 / 2025-08-15 | 2025-07-07 / 2025-08-15 |
 | Autumn | 2025-10-27 / 2025-10-30 | 2025-10-13 / 2025-10-24 | 2025-10-06 / 2025-10-18 |
 | Christmas 2025/26 | 2025-12-22 / 2026-01-05 | 2025-12-22 / 2026-01-07 | 2025-12-22 / 2026-01-10 |
 
-Il 31 ottobre 2025 in BW è senza lezioni (Reformationsfest), ma non è una festività legale generale. È registrato separatamente dalle vacanze autunnali del 27–30 ottobre.
+October 31 in BW is a school-free day (Reformationsfest), but not a general public holiday. It is recorded separately from the October 27–30 school break.
 
-## Limiti e uso
+## Use and limits
 
-Tutte le 12 date festive legali restano documentate come riferimento, ma sono escluse dai calcoli perché gli orari effettivamente applicati non sono verificabili per tutte le date.
+I keep all 12 public-holiday dates as reference data, but remove them from the calculation because their actual holiday timetables have not been verified. I also flag the 11 non-holiday dates whose evening enters a holiday, including December 31 before January 1, 2026. Both windows are empty on those dates to keep the same sample. See [methodology.md](methodology.md).
 
-- Il file giornaliero contiene 365 date per ciascuno dei tre Länder (1.095 righe logiche).
-- Le vacanze natalizie che attraversano il confine annuale mantengono gli intervalli originali; il calendario giornaliero è limitato al 2025.
-- Sabati, domeniche, festivi e vacanze hanno indicatori separati e possono sovrapporsi.
-- I giorni mobili locali (per esempio Carnevale o ponti) e le chiusure eccezionali sono ancora da verificare presso scuole e autorità competenti. Non sono automaticamente giorni di lezione.
-- Il 24 e il 31 dicembre non sono festività legali generali: eventuali orari speciali vanno letti nei dati rnv.
-- Calendari universitari e scuole con regimi speciali non sono compresi.
-- Per le linee che attraversano più Länder si conservano tutti e tre i calendari; non si assegna un solo calendario a tutta la linea.
-- Queste variabili aiutano a interpretare il servizio: il calendario GTFS resta la fonte delle corse attive.
+- The daily file has 365 dates for each state: 1,095 date/state records.
+- Christmas breaks keep their original date ranges across years. Daily records cover only 2025.
+- Weekends, public holidays and school breaks have separate flags and can overlap.
+- Local school-free days and special closures still need a check. A weekday outside a regional break is not proof that every school was open.
+- December 24 and 31 are not general public holidays. Special timetables need a separate check; December 31 is excluded here because its evening enters January 1.
+- University calendars and special school calendars are not included.
+- All three state calendars are kept. For this hub comparison, school-break groups use the departure state.
+- These fields help describe the dates. The GTFS calendar selects active trips.
 
-## Fonti ufficiali
+## Official sources
 
 - [kmk_2024_25](https://www.kmk.org/fileadmin/Dateien/pdf/Ferienkalender/FER2024_25.pdf)
 - [kmk_2025_26](https://www.kmk.org/fileadmin/Dateien/pdf/Ferienkalender/FER2025_26.pdf)
