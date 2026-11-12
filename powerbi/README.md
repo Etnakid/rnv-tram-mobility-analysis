@@ -2,7 +2,7 @@
 
 I include a draft report in `RNV_Mobility_2025.pbix`. It has two pages: Service overview and Coverage and notes. It opened in Power BI Desktop on 12 November 2026. The screenshot shows the expected Mannheim to Heidelberg values. Other directions, filter changes and a fresh reload still need review.
 
-The report uses orange and blue, simple cards and a tram illustration. I am improving the text size, filters and background after the first Desktop review.
+The report uses orange and blue, simple cards and a tram illustration. After the first Desktop review, I increased the text and card values, separated the filter labels from the menus, and added quiet background details. The tram has a three-quarter view at the lower-right edge. These latest layout changes still need a Desktop check.
 
 To use the snapshot, open the PBIX file. To refresh it, first create the data below, then set the `ProjectFolder` parameter to your local repository folder. The embedded snapshot keeps the data available before refresh.
 
