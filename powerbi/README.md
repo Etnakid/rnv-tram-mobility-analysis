@@ -1,6 +1,12 @@
-# Build the Power BI report
+# Power BI report
 
-This guide is ready to try in Power BI Desktop on Windows. Desktop refresh and layout have not yet been tested. The report should stay a draft until the checks below pass.
+I include a draft report in `RNV_Mobility_2025.pbix`. It has two pages: Service overview and Coverage and notes. It opened in Power BI Desktop on 12 November 2026. The screenshot shows the expected Mannheim to Heidelberg values. Other directions, filter changes and a fresh reload still need review.
+
+The report uses orange and blue, simple cards and a tram illustration. I am improving the text size, filters and background after the first Desktop review.
+
+To use the snapshot, open the PBIX file. To refresh it, first create the data below, then set the `ProjectFolder` parameter to your local repository folder. The embedded snapshot keeps the data available before refresh.
+
+The steps below explain how I can rebuild the report from the data. The draft visuals use simple median and count aggregations; `measures.dax` is a separate reference and is not loaded in the PBIX. Keep one direction selected.
 
 ## 1. Create the data
 
@@ -40,7 +46,7 @@ Keep one direction selected. For monthly charts, use the `Month` date itself, no
 
 ## 6. Build one page
 
-Use a plain light background, one accent colour and short labels. Start with this layout:
+Use a dark blue background, orange as the main accent and blue for the evening trend. Keep the labels short. The initial layout is:
 
 | Part | Visual | Fields or measures |
 |---|---|---|
@@ -75,6 +81,6 @@ Do not turn blank gaps into zero. Do not apply an `ok` filter to the whole page:
 
 ## 8. Save the draft
 
-Save a local PBIX file. Refresh it once more and check the filters and notes. Do not call it a finished report until Desktop checks pass. The current `.gitignore` excludes PBIX files; a release download or PBIP version can be prepared after review.
+Save a local PBIX file. Refresh it once more and check the filters and notes. Do not call it a finished report until Desktop checks pass. This named draft PBIX is tracked in Git. Other local PBIX files remain ignored.
 
 Helpful Microsoft guides: [create measures](https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-tutorial-create-measures) and [sort one column by another](https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-sort-by-column).

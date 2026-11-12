@@ -16,6 +16,7 @@ data/processed/
 .ipynb_checkpoints/
 **/.pbi/
 *.pbix
+!powerbi/RNV_Mobility_2025.pbix
 *.pbit
 
 # Local editor/OS files
