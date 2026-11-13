@@ -14,7 +14,7 @@ Replacement buses belong in a separate disruption layer linked to their rail cor
 
 Choose explicit dates only after inspecting feed validity. Compare ordinary weekdays, Saturdays and Sundays, and account for regional school breaks. Resolve calendar.txt together with calendar_dates.txt. Keep legal holidays out of calculations unless their actual timetable can be verified.
 
-Use the feed timezone and preserve GTFS times beyond 24:00:00. For an evening window of 22:00–02:00, include relevant services from both the current and previous service dates, convert them to dated local timestamps and deduplicate departures. Check daylight-saving transitions.
+Use the feed timezone and preserve GTFS times beyond 24:00:00. For the evening window of 22:00–23:45 inclusive, count departures through the 23:45 endpoint. Calculate intervals only between consecutive departures inside this span. Check daylight-saving transitions for the annual analysis.
 
 Calculate headways for each stop, direction and compatible destination pattern. Report edge gaps and first/last departures separately. A scheduled headway is not an observed passenger waiting time; 60 divided by hourly departures can hide uneven service.
 
