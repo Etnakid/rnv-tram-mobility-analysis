@@ -1,72 +1,136 @@
-# rnv Tram Mobility Analysis
+# rnv Tram Connections
+*A personal study of tram links around Mannheim, Ludwigshafen and Heidelberg*
 
-How does the rnv tram network connect everyday life across the Rhein-Neckar region?
+[English](#english) | [Deutsch](#deutsch)
 
-I usually get around by car, but every now and then I have taken the trams in this area. Those trips made me wonder how well Mannheim, Ludwigshafen and Heidelberg are connected, and what changes in the evening, at weekends and during school breaks.
+## English
 
-This independent portfolio project currently compares direct rnv tram services between Mannheim, Ludwigshafen and Heidelberg, in both directions. It uses fixed hubs: Mannheim Hauptbahnhof, Ludwigshafen Berliner Platz (Bf LU Mitte), and Heidelberg Hauptbahnhof including Hauptbahnhof West. The five original research questions below remain the wider project context; accessibility and real-time reliability are not implemented.
+### Why I started this
 
-**Study period: 1 January–31 December 2025.** The analysis uses 64 reviewed historical archives and produces 2,118 directional date records after excluding the 12 public holidays. Each direction has 349 usable dates; four clock-change dates are also excluded. I have not finished checking the Power BI report in Desktop, so I am leaving it out of this release.
+I live in the Rhein-Neckar area. I travel by car most days, but sometimes I take the tram. I wanted to answer a local question: can I still travel between our city centres after a late shift, and how long might I wait?
 
-## Five research questions
+I chose three central hubs so I could compare the same kind of trip in each direction. This is a small, careful study. It is not a map of every route or every way to travel between the cities.
 
-| Theme | Question | Planned evidence |
-|---|---|---|
-| Evening service | Which corridors remain well connected after 22:00? | Scheduled departures, service spans and gaps by direction |
-| Commuting | Which connections support early starts and late finishes? | Timetable-based journeys to documented employment destinations |
-| Territory | How does service differ between central sections and outer branches? | Departures and headways by stop, corridor and municipality |
-| Accessibility | Which stops have documented step-free access, and where is information missing? | Platform-level attributes and explicit unknown values |
-| Reliability | How do real-time predictions differ from scheduled times? | A prospective collection, subject to feed coverage and terms |
+### What I compare
 
-## Scope and interpretation
+The study uses 2025 timetable data from the [official rnv archive](https://gtfs-sandbox-dds.rnv-online.de/). It compares direct tram trips between:
 
-Count tram trips that allow boarding at the origin hub and alighting later at the destination hub on the same trip. Include all platforms at the named hubs and all matching tram lines, in six directions. This compares these hubs, not every possible journey between the cities. No transfers or fastest-route calculation is included. Public holidays remain in the reference calendar but are excluded from every service calculation because the historical holiday timetables could not be verified. Other day groups use the departure state's calendar.
+- Mannheim Hauptbahnhof
+- Ludwigshafen Berliner Platz / Bf LU Mitte
+- Heidelberg Hauptbahnhof, including Hauptbahnhof West
 
-Exclude ordinary bus routes, S-Bahn, regional and long-distance rail from the core comparison. Record rail-replacement buses separately so construction does not appear as an unexplained loss of service. rnv is the operator; VRN is the wider transport association.
+I check all six directions between these hubs. A direct trip means the tram boards at one hub and later reaches the other on the same GTFS trip. A change is not included.
 
-A tram-only analysis cannot establish total public-transport accessibility. Scheduled service is not observed operation. Real-time predictions alone do not prove actual punctuality or cancellations.
+I use two time windows:
 
-## What I found
+- Day: 06:00 to before 20:00
+- Evening: 22:00 to 23:45, including a departure at 23:45
 
-From Mannheim to Heidelberg, the median gap between direct tram departures rises from 10 minutes during the day (06:00–20:00) to 30 minutes in the evening (22:00–23:45). For Mannheim to Ludwigshafen, the median number of daytime departures is 125 on weekdays outside school breaks and 95 on Sundays.
+The evening count stops at 23:45. It does not assume that a 30-minute gap continues until 02:00.
 
-Between 11 and 24 October, the timetable records no matching direct tram departures between the selected Mannheim and Ludwigshafen hubs in the studied windows. I found an rnv notice about construction around Berliner Platz and Wittelsbachplatz, with service changes from 11 to 26 October. This gives useful context for the gap, although the timetable alone cannot confirm what ran on the street ([rnv notice republished by MRN-News](https://www.mrn-news.de/2025/10/02/ludwigshafen-sperrungen-im-bereich-berliner-platz-und-wittelsbachplatz-604990/); [SWR report](https://www.swr.de/swraktuell/rheinland-pfalz/ludwigshafen/haltestelle-berliner-platz-und-rhein-haardtbahn-wegen-bauarbeiten-und-gleiserneuerung-gesperrt-100.html)).
+I checked 64 historical timetable files. I leave out the 12 legal public holidays because I could not confirm which special timetable rnv used on each date. Dates with a clock change or a missing hub are marked and are not used in the medians. The number of usable dates can therefore change by direction.
 
-For the selected hubs and time windows, the data contains no direct tram service between Ludwigshafen and Heidelberg. Since this analysis follows direct trams only, it does not describe journeys with a change.
+A median is the middle value. I first calculate the results for each day, then compare the daily results. A median gap does not mean that every tram is exactly that many minutes apart.
 
-I was sorry not to find suitable data on delays or passenger numbers. I had hoped to look at punctuality and crowding too, but the available sources did not give me enough evidence. Timetables show one part of a trip; the experience on board is another.
+### What the timetable tells us
 
-## Start here
+On 2 January 2025, the archived Mannheim-to-Heidelberg timetable lists four departures in the evening window: 22:15, 22:45, 23:15 and 23:45. They are 30 minutes apart, and the last listed tram is at 23:45. This is one date, not a promise for every day. It also shows why four departures and a 30-minute gap can both be correct: the gap describes the space between trams; it does not say that service continues to 02:00.
 
-- [Scope and analytical method](docs/methodology.md)
-- [2025 holidays and school breaks](docs/calendar_2025.md)
-- [Source register and unresolved coverage](docs/sources.md)
-- [Delivery roadmap](docs/roadmap.md)
-- [Data handling](data/README.md)
+For Mannheim to Ludwigshafen, the daytime median is 125 departures on weekdays outside school breaks and 95 on Sundays. The difference matters to people who travel at weekends. It is a reason to ask about the day type, not just the route.
 
-The reviewed 2025 calendar is supplied under `data/reference/`. Python leaves public-holiday dates out of the daily analysis file. Power Query joins the reference calendar and creates the remaining day groups; DAX calculates the medians.
+Between 11 and 24 October 2025, the selected timetable has no matching direct tram trips between the Mannheim and Ludwigshafen hubs in the study windows. An [rnv construction notice](https://www.mrn-news.de/2025/10/02/ludwigshafen-sperrungen-im-bereich-berliner-platz-und-wittelsbachplatz-604990/) reports work and stop changes from 11 to 26 October. Matching trips appear again on 27 October. The notice helps explain the timetable gap, but a timetable cannot prove what ran on the street that day. [SWR also reported on the works](https://www.swr.de/swraktuell/rheinland-pfalz/ludwigshafen/haltestelle-berliner-platz-und-rhein-haardtbahn-wegen-bauarbeiten-und-gleiserneuerung-gesperrt-100.html).
 
-## Reproduce the analysis
+In the studied windows, the archive shows no direct tram trip between the selected Ludwigshafen and Heidelberg hubs in either direction. This does not mean that a journey is impossible. A trip with a change may work; this study does not calculate it.
 
-Use Python 3.10 or later from the repository folder:
+### Why this matters here
 
-```text
-python -m pip install -r requirements.txt
-python scripts/check_2025.py
-python scripts/annual_stops.py
-```
+For someone finishing work late, the last departure can matter more than the average gap. For a weekend trip, Sunday service may be quite different from a weekday. During construction, the key question is not only “Is there a tram?” but also “Which stop is open, and where does a replacement bus leave?”
 
-The source is the [official rnv timetable archive](https://gtfs-sandbox-dds.rnv-online.de/). The first run downloads its historical ZIPs published from December 2024 through December 2025 (64 archives, about 220 MB, when this analysis was run). December 2024 is included because those timetables may still apply in early January. For each 2025 date, the script selects the latest already-published archive with valid tram service.
+These are the next useful questions for people who live here:
 
-Archives stay in `data/raw/`; results are written to `data/processed/annual_stop_days.json`. Later runs reuse the local ZIPs. The scripts use the standard library; Windows additionally needs the timezone database listed in `requirements.txt`.
+- What is the last useful connection after 22:00, including a change?
+- How do school breaks and Sundays change a real trip?
+- Which stops and platforms are step-free, and where is that information missing?
+- How do planned times compare with actual delays and cancellations?
 
-For Power Query, create the `ProjectFolder` parameter using `powerbi/ProjectFolder.m` and replace the placeholder with this repository's full local folder path. Create a blank query named `ServiceDays` and paste `powerbi/ServiceDays.m` into its Advanced Editor. After loading it, create each measure in `powerbi/measures.dax` separately. The packaged Power BI dashboard is not published yet.
+The current analysis cannot answer all of them. It uses scheduled trips, not passenger numbers or observed arrivals. Accessibility and real-time reliability still need better data and separate checks.
 
-Daytime is 06:00–20:00; evening is 22:00–23:45 inclusive. Use one direction at a time. Public holidays are excluded; departure counts are daily medians over the remaining dates. Interval indicators are medians of daily median intervals, not measured passenger waiting times. A zero count describes the absence of matching direct trams in that window; it does not imply no public transport or no journey with a change.
+### Reproduce the work
 
-## Next milestone
+Use Python 3.10 or later from the project folder:
 
-Verify data loading and visual layout in Power BI Desktop before publishing the dashboard.
+    python -m pip install -r requirements.txt
+    python scripts/check_2025.py
+    python scripts/annual_stops.py
 
-Independent analysis, not an official rnv or VRN product. Source datasets retain their respective terms.
+The first command downloads the historical files. The scripts save raw and processed files locally; those files are not included in this repository. See [data/README.md](data/README.md), [the method](docs/methodology.md), [the calendar](docs/calendar_2025.md) and [the source notes](docs/sources.md).
 
+The Power BI file is not included in this repository. Its annual evening figures need a refresh with the final 22:00–23:45 window before they are treated as final.
+
+This is my independent project. It is not an official rnv or VRN product. Source data keeps its own terms.
+
+## Deutsch
+
+### Warum ich damit angefangen habe
+
+Ich lebe in der Rhein-Neckar-Region. An den meisten Tagen fahre ich mit dem Auto, aber manchmal nehme ich die Straßenbahn. Ich wollte eine Frage aus dem Alltag beantworten: Kann ich nach einer späten Schicht noch zwischen unseren Innenstädten fahren, und wie lange muss ich vielleicht warten?
+
+Ich habe drei zentrale Haltestellen gewählt. So kann ich ähnliche Fahrten in beide Richtungen vergleichen. Die Studie ist bewusst klein. Sie zeigt nicht jede Linie und nicht jede mögliche Fahrt zwischen den Städten.
+
+### Was ich vergleiche
+
+Die Studie nutzt Fahrplandaten für 2025 aus dem [offiziellen rnv-Archiv](https://gtfs-sandbox-dds.rnv-online.de/). Verglichen werden direkte Straßenbahnfahrten zwischen:
+
+- Mannheim Hauptbahnhof
+- Ludwigshafen Berliner Platz / Bf LU Mitte
+- Heidelberg Hauptbahnhof, auch Hauptbahnhof West
+
+Ich prüfe alle sechs Richtungen zwischen diesen Haltestellen. Eine direkte Fahrt bedeutet: Die Straßenbahn fährt an einer Haltestelle los und erreicht die andere Haltestelle mit derselben GTFS-Fahrt. Umsteigen ist nicht Teil dieser Auswertung.
+
+Ich nutze zwei Zeitfenster:
+
+- Tag: 06:00 Uhr bis vor 20:00 Uhr
+- Abend: 22:00 bis einschließlich 23:45 Uhr
+
+Das Abendfenster endet um 23:45 Uhr. Ein Abstand von 30 Minuten bedeutet nicht, dass bis 02:00 Uhr Straßenbahnen fahren.
+
+Ich habe 64 historische Fahrplandateien geprüft. Die 12 gesetzlichen Feiertage lasse ich aus den Berechnungen heraus, weil ich den Sonderfahrplan für diese Tage nicht sicher bestätigen konnte. Tage mit Zeitumstellung oder fehlenden Haltestellen sind markiert und gehen nicht in die Mediane ein. Deshalb kann die Zahl der nutzbaren Tage je nach Richtung anders sein.
+
+Der Median ist der mittlere Wert. Zuerst berechne ich die Werte für jeden Tag. Dann vergleiche ich diese Tageswerte. Ein mittlerer Abstand bedeutet nicht, dass jede Straßenbahn genau so viele Minuten später kommt.
+
+### Was der Fahrplan zeigt
+
+Am 2. Januar 2025 stehen im archivierten Fahrplan von Mannheim nach Heidelberg vier Abendfahrten: 22:15, 22:45, 23:15 und 23:45 Uhr. Zwischen ihnen liegen 30 Minuten. Die letzte eingetragene Fahrt fährt um 23:45 Uhr. Das gilt für diesen Tag und nicht automatisch für jeden Tag. Es erklärt auch, warum vier Fahrten und ein Abstand von 30 Minuten zusammenpassen: Der Abstand beschreibt die Zeit zwischen zwei Straßenbahnen. Er sagt nicht, dass der Verkehr bis 02:00 Uhr weitergeht.
+
+Von Mannheim nach Ludwigshafen liegt der Median am Tag bei 125 Fahrten an Werktagen außerhalb der Schulferien und bei 95 an Sonntagen. Dieser Unterschied ist für Fahrten am Wochenende wichtig. Man sollte also nicht nur nach der Linie fragen, sondern auch nach dem Wochentag.
+
+Vom 11. bis 24. Oktober 2025 zeigt der ausgewählte Fahrplan keine passende direkte Straßenbahnfahrt zwischen den gewählten Haltestellen in Mannheim und Ludwigshafen. Eine [Baustellenmeldung von rnv](https://www.mrn-news.de/2025/10/02/ludwigshafen-sperrungen-im-bereich-berliner-platz-und-wittelsbachplatz-604990/) nennt Bauarbeiten und Änderungen an Haltestellen vom 11. bis 26. Oktober. Am 27. Oktober erscheinen wieder passende Fahrten im Fahrplan. Die Meldung hilft, die Lücke zu verstehen. Ein Fahrplan beweist aber nicht, was an diesem Tag wirklich gefahren ist. [Auch der SWR berichtete über die Bauarbeiten](https://www.swr.de/swraktuell/rheinland-pfalz/ludwigshafen/haltestelle-berliner-platz-und-rhein-haardtbahn-wegen-bauarbeiten-und-gleiserneuerung-gesperrt-100.html).
+
+In den untersuchten Zeitfenstern zeigt das Archiv keine direkte Straßenbahnfahrt zwischen den gewählten Haltestellen in Ludwigshafen und Heidelberg, in keiner Richtung. Das heißt nicht, dass die Fahrt unmöglich ist. Mit Umsteigen kann es eine Verbindung geben; diese Studie berechnet sie nicht.
+
+### Was das für Menschen hier bedeutet
+
+Wer spät Feierabend hat, braucht oft die letzte passende Verbindung. Der mittlere Abstand allein reicht dafür nicht. Am Wochenende kann der Fahrplan anders sein als an einem Werktag. Bei einer Baustelle ist auch wichtig: Welche Haltestelle ist offen, und wo fährt ein Ersatzbus ab?
+
+Das sind gute nächste Fragen für Menschen aus der Region:
+
+- Welche Verbindung gibt es nach 22:00 Uhr noch, auch mit Umsteigen?
+- Was ändert sich an Sonntagen und in den Schulferien?
+- Welche Haltestellen und Bahnsteige sind stufenfrei, und wo fehlen Informationen?
+- Wie unterscheiden sich Fahrplan und tatsächliche Verspätungen oder Ausfälle?
+
+Die aktuelle Auswertung kann noch nicht alles beantworten. Sie nutzt geplante Fahrten, aber keine Fahrgastzahlen und keine gemessenen Ankunftszeiten. Für Barrierefreiheit und Zuverlässigkeit brauche ich bessere Daten und eigene Prüfungen.
+
+### So kann man die Auswertung wiederholen
+
+Python 3.10 oder neuer im Projektordner:
+
+    python -m pip install -r requirements.txt
+    python scripts/check_2025.py
+    python scripts/annual_stops.py
+
+Der erste Befehl lädt die historischen Dateien herunter. Die Skripte speichern Rohdaten und Ergebnisse nur lokal; sie sind nicht in diesem Repository. Mehr steht in [data/README.md](data/README.md), [der Methode](docs/methodology.md), [dem Kalender](docs/calendar_2025.md) und [den Quellen](docs/sources.md).
+
+Die Power-BI-Datei ist nicht Teil dieses Repositorys. Ihre Abendwerte für das ganze Jahr müssen noch mit dem endgültigen Zeitfenster 22:00–23:45 neu geladen werden.
+
+Das ist mein eigenes Projekt, kein offizielles Produkt von rnv oder VRN. Für die Quelldaten gelten die jeweiligen Nutzungsbedingungen.
