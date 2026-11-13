@@ -28,7 +28,7 @@ A tram-only analysis cannot establish total public-transport accessibility. Sche
 
 ## What I found
 
-From Mannheim to Heidelberg, the median gap between direct tram departures rises from 10 minutes during the day (06:00–20:00) to 30 minutes in the evening (22:00–02:00 the next day). For Mannheim to Ludwigshafen, the median number of daytime departures is 125 on weekdays outside school breaks and 95 on Sundays.
+From Mannheim to Heidelberg, the median gap between direct tram departures rises from 10 minutes during the day (06:00–20:00) to 30 minutes in the evening (22:00–23:45). For Mannheim to Ludwigshafen, the median number of daytime departures is 125 on weekdays outside school breaks and 95 on Sundays.
 
 Between 11 and 24 October, the timetable records no matching direct tram departures between the selected Mannheim and Ludwigshafen hubs in the studied windows. I found an rnv notice about construction around Berliner Platz and Wittelsbachplatz, with service changes from 11 to 26 October. This gives useful context for the gap, although the timetable alone cannot confirm what ran on the street ([rnv notice republished by MRN-News](https://www.mrn-news.de/2025/10/02/ludwigshafen-sperrungen-im-bereich-berliner-platz-und-wittelsbachplatz-604990/); [SWR report](https://www.swr.de/swraktuell/rheinland-pfalz/ludwigshafen/haltestelle-berliner-platz-und-rhein-haardtbahn-wegen-bauarbeiten-und-gleiserneuerung-gesperrt-100.html)).
 
@@ -62,7 +62,7 @@ Archives stay in `data/raw/`; results are written to `data/processed/annual_stop
 
 For Power Query, create the `ProjectFolder` parameter using `powerbi/ProjectFolder.m` and replace the placeholder with this repository's full local folder path. Create a blank query named `ServiceDays` and paste `powerbi/ServiceDays.m` into its Advanced Editor. After loading it, create each measure in `powerbi/measures.dax` separately. The packaged Power BI dashboard is not published yet.
 
-Daytime is 06:00–20:00; evening is 22:00–02:00 the next day. Use one direction at a time. Public holidays are excluded; departure counts are daily medians over the remaining dates. Interval indicators are medians of daily median intervals, not measured passenger waiting times. A zero count describes the absence of matching direct trams in that window; it does not imply no public transport or no journey with a change.
+Daytime is 06:00–20:00; evening is 22:00–23:45 inclusive. Use one direction at a time. Public holidays are excluded; departure counts are daily medians over the remaining dates. Interval indicators are medians of daily median intervals, not measured passenger waiting times. A zero count describes the absence of matching direct trams in that window; it does not imply no public transport or no journey with a change.
 
 ## Next milestone
 
