@@ -93,8 +93,11 @@ def seconds(value):
     return hour * 3600 + minute * 60 + second
 
 
-def window_stats(departures, start, end):
-    selected = sorted(time for time in departures if start <= time < end)
+def window_stats(departures, start, end, include_end=False):
+    if include_end:
+        selected = sorted(time for time in departures if start <= time <= end)
+    else:
+        selected = sorted(time for time in departures if start <= time < end)
     gaps = [(right - left).total_seconds() / 60 for left, right in zip(selected, selected[1:])]
     return {
         'departures': len(selected),
@@ -146,7 +149,7 @@ def main():
             daytime = evening = None
             if status == 'ok':
                 daytime = window_stats(values, midnight + dt.timedelta(hours=6), midnight + dt.timedelta(hours=20))
-                evening = window_stats(values, midnight + dt.timedelta(hours=22), midnight + dt.timedelta(days=1, hours=2))
+                evening = window_stats(values, midnight + dt.timedelta(hours=22), midnight + dt.timedelta(hours=23, minutes=45), include_end=True)
             results.append(dict(case=origin + ' → ' + target, date=str(day), state=STATES[origin],
                                 status=status, daytime=daytime, evening=evening))
     assert len(results) == 2118
