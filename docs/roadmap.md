@@ -1,53 +1,34 @@
 # Delivery roadmap
 
-## 0 — Project foundation (this release)
+## This release — scheduled trips between three hubs
 
-- [x] Agree on the rnv tram scope.
-- [x] Keep all five research questions for the wider project.
-- [x] Document the method, possible sources and evidence limits.
-- [x] Download and inspect 64 historical feeds.
-- [x] Compare direct tram trips between three fixed hubs, in both directions.
-- [ ] Finish checking the full network and stop coverage.
+- [x] Define the three hubs and the six directions.
+- [x] Compare direct tram trips in the 2025 timetable archive.
+- [x] Use clear day and evening windows, with holidays and flagged dates explained.
+- [x] Check concrete examples against the archived timetable and construction notices.
+- [x] Write down what the timetable can and cannot tell local passengers.
+- [x] Check whether accessibility and real-time sources can support further conclusions.
 
-Progress on 13 November 2026: the selected hubs and service windows are analysed. Every 2025 date has a published timetable snapshot with tram service. A full line-by-line network check and more spot-checks against passenger information are still open.
+The study is complete within this fixed scope. It is a comparison of planned direct tram trips between Mannheim Hauptbahnhof, Ludwigshafen Berliner Platz / Bf LU Mitte and Heidelberg Hauptbahnhof, including Hauptbahnhof West. It is not a complete inventory of every rnv line, and it does not include trips with a change.
 
-The daily file has 2,118 date-direction records after the 12 public holidays are removed. Dates with clock changes or missing hubs are flagged. Only records with status "ok" enter the report measures, so the number of usable dates can differ by direction. Trips with a change are outside this comparison.
+The data contains 2,118 date-direction records after the 12 public holidays are removed. Clock-change dates and dates with missing hubs are flagged. Only records with status "ok" enter the report measures, so the number of usable dates differs by direction.
 
-## 1 — Verified network inventory
+The timetable supports questions about service frequency, last departures and differences between weekdays and Sundays. It does not show passenger numbers or prove what ran on the street. The October construction example is supported by the timetable and public notices, but not by a record of actual tram movements.
 
-- Select a rail-inclusive timetable snapshot and record its source and terms.
-- Publish the list of included agencies, routes and exclusions.
-- Check line coverage against official maps.
-- Check boarding stops and town boundaries.
-- Provide steps that another person can repeat.
+## Separate work that needs new data
 
-Acceptance: another person can obtain the documented input and reproduce the route and stop inventory. No unsupported total of towns or lines.
+### Full network inventory
 
-## 2 — Scheduled service
+Use a rail-inclusive timetable source, list the included agencies and routes, and check its coverage against dated official maps. Publish the route and stop list before making network-wide claims.
 
-- Compare service calendars and times that pass midnight.
-- Study evening service and differences between areas.
-- Add clear examples for journeys to work.
-- Define each measure and check examples against passenger timetables.
+### Accessibility by platform
 
-## 3 — Accessibility
+Use dated platform-level information. Mark each platform as step-free, not step-free or unknown. The current rnv plan is useful for travel from 2026, but it does not establish conditions throughout 2025.
 
-- Check access at each platform and how old each source is.
-- Show accessible, not accessible and unknown as separate results.
+### Real-time reliability
 
-## 4 — Real-time service
+Collect real-time forecasts and outcomes over a new, stated period. Check access, licence, route coverage, trip matching and missing records. Do not turn current feed availability into a claim about the full year 2025.
 
-- Check access, licence, coverage and trip matching.
-- Choose the study period before collecting data.
-- Separate forecast delays from measured delays.
+## Power BI report
 
-If the feed is not suitable, report that limit and leave this part unfinished.
-
-## 5 — Report and independent check
-
-- Build a report from checked results.
-- Provide clear versions of the tools and repeatable steps.
-- Write conclusions that follow from the results.
-- Ask another person to repeat the analysis.
-
-The report file is kept outside this repository while its annual evening figures are refreshed for the final 22:00–23:45 window. This repository does not contain a PBIX or PBIP file.
+The report file is kept outside this repository. Its page design now uses the navy-and-orange colour order and the tram artwork sits on the bottom edge. The annual evening cards still use the earlier 22:00–02:00 data import; refresh the model with the final 22:00–23:45 window before treating those annual values as final.

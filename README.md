@@ -55,6 +55,14 @@ These are the next useful questions for people who live here:
 
 The current analysis cannot answer all of them. It uses scheduled trips, not passenger numbers or observed arrivals. Accessibility and real-time reliability still need better data and separate checks.
 
+### What I checked before closing this study
+
+rnv publishes a stop plan for passengers with reduced mobility. The current plan is valid from January 2026, so it helps with travel today, but it cannot prove which platforms were step-free during 2025. It also warns that the rear part of a coupled tram may not offer step-free boarding at every stop. I have not scored the 2025 routes for accessibility.
+
+VRN now provides public GTFS Realtime data for buses and trams. The feed can support a new study from the time collection starts. I did not find a complete historical 2025 record, so I cannot calculate yearly punctuality or cancellation rates for 2025. A timetable is not proof of what ran.
+
+For this release, I treat the fixed-hub timetable comparison as the finished study. A full network map, a platform-by-platform accessibility check and a future real-time study are useful next projects, but they need different data.
+
 ### Reproduce the work
 
 Use Python 3.10 or later from the project folder:
@@ -65,7 +73,7 @@ Use Python 3.10 or later from the project folder:
 
 The first command downloads the historical files. The scripts save raw and processed files locally; those files are not included in this repository. See [data/README.md](data/README.md), [the method](docs/methodology.md), [the calendar](docs/calendar_2025.md) and [the source notes](docs/sources.md).
 
-The Power BI file is not included in this repository. Its annual evening figures need a refresh with the final 22:00–23:45 window before they are treated as final.
+The Power BI file is stored separately from this repository. The report shows the final 22:00–23:45 window, but its annual evening figures still use an earlier data import. Refresh the model before using those annual values.
 
 This is my independent project. It is not an official rnv or VRN product. Source data keeps its own terms.
 
@@ -121,6 +129,14 @@ Das sind gute nächste Fragen für Menschen aus der Region:
 
 Die aktuelle Auswertung kann noch nicht alles beantworten. Sie nutzt geplante Fahrten, aber keine Fahrgastzahlen und keine gemessenen Ankunftszeiten. Für Barrierefreiheit und Zuverlässigkeit brauche ich bessere Daten und eigene Prüfungen.
 
+### Was ich vor dem Abschluss noch geprüft habe
+
+rnv veröffentlicht einen Haltestellenplan für Fahrgäste mit eingeschränkter Mobilität. Der aktuelle Plan gilt ab Januar 2026. Er hilft bei der heutigen Fahrt, zeigt aber nicht sicher, welche Bahnsteige 2025 stufenfrei waren. Der Plan weist auch darauf hin: Bei gekoppelten Straßenbahnen ist ein stufenfreier Einstieg im hinteren Teil nicht an jeder Haltestelle möglich. Für 2025 habe ich die Bahnsteige nicht bewertet.
+
+VRN bietet jetzt öffentliche GTFS-Echtzeitdaten für Busse und Straßenbahnen an. Damit kann man ab Beginn einer eigenen Datensammlung eine neue Studie machen. Ich habe kein vollständiges Archiv für 2025 gefunden. Deshalb kann ich für 2025 keine Jahreswerte zu Verspätungen oder Ausfällen berechnen. Ein Fahrplan beweist nicht, was wirklich gefahren ist.
+
+Für diese Version ist der Fahrplanvergleich an den festen Haltestellen abgeschlossen. Eine vollständige Netzkarte, eine Prüfung jedes Bahnsteigs und eine spätere Echtzeitstudie sind sinnvolle neue Projekte. Dafür brauche ich andere Daten.
+
 ### So kann man die Auswertung wiederholen
 
 Python 3.10 oder neuer im Projektordner:
@@ -131,6 +147,6 @@ Python 3.10 oder neuer im Projektordner:
 
 Der erste Befehl lädt die historischen Dateien herunter. Die Skripte speichern Rohdaten und Ergebnisse nur lokal; sie sind nicht in diesem Repository. Mehr steht in [data/README.md](data/README.md), [der Methode](docs/methodology.md), [dem Kalender](docs/calendar_2025.md) und [den Quellen](docs/sources.md).
 
-Die Power-BI-Datei ist nicht Teil dieses Repositorys. Ihre Abendwerte für das ganze Jahr müssen noch mit dem endgültigen Zeitfenster 22:00–23:45 neu geladen werden.
+Die Power-BI-Datei liegt getrennt von diesem Repository. Im Bericht steht das endgültige Zeitfenster 22:00–23:45, aber die Abendwerte für das ganze Jahr stammen noch aus einem älteren Datenimport. Vor der Nutzung dieser Jahreswerte muss das Modell neu geladen werden.
 
 Das ist mein eigenes Projekt, kein offizielles Produkt von rnv oder VRN. Für die Quelldaten gelten die jeweiligen Nutzungsbedingungen.

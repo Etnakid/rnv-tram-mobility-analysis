@@ -19,6 +19,16 @@ Download links are listed in the [official rnv archive](https://gtfs-sandbox-dds
 | [GTFS Schedule reference](https://gtfs.org/documentation/schedule/reference/) | Timetable parsing and calendar/time rules | Technical reference inspected |
 | [GTFS Realtime reference](https://gtfs.org/documentation/realtime/reference/) | Future real-time work | Technical reference for later work |
 
+## Accessibility and real-time data
+
+| Source | What it provides | What this study can say |
+|---|---|---|
+| [rnv accessibility information](https://www.rnv-online.de/fahrtinfo/sicher-unterwegs/barrierefreiheit/) and the [stop plan for passengers with reduced mobility](https://www.rnv-online.de/media/rnv-online.de/Fahrtinfo/Liniennetzplaene/regulaer/Haltestellenplan_fuer_Mobilitaetseingeschraenkte.pdf) | Current stop and boarding information. The linked plan is valid from January 2026. | Useful for travel now, but not a historical record for 2025. Some coupled trams may not allow step-free boarding in the rear part at every stop. No 2025 accessibility score is made here. |
+| [VRN/RNN GTFS Realtime dataset](https://opendata.vrn.de/datasets/vrn-und-rnn-gtfs-realtime-echtzeitfahrplandaten) and [VRN announcement](https://opendata.vrn.de/news/echtzeitfahrplandaten-ab-sofort-ueber-gtfs-realtime-verfuegbar) | Public bus and tram real-time data; the announcement dates availability from October 2025. The dataset description excludes rail passenger services (SPNV). | It can support a new collection from now on. I did not find a complete historical 2025 archive, so this study does not report yearly punctuality or cancellation rates. |
+| [rnv Open Data](https://www.rnv-online.de/unternehmen/open-data/) | Information about the Start.Info API for current departures, disruption messages and route changes. | A possible source for future work. Access, terms, coverage and retention still need to be checked before collecting data. |
+
+A real-time study should collect forecasts and observed outcomes over a defined period, match them to the planned trips, and report missing data. The current timetable files alone cannot show whether a tram actually ran on time.
+
 ## Before accepting a data source
 
 Keep the publisher and link clear. Check that the timetable applies to the date and that its terms allow the planned use.
